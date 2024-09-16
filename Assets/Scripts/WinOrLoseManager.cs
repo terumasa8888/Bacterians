@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Player, Enemy‚Ì”‚ğŠÄ‹‚µAŸ”s‚ğ”»’è‚·‚é
+/// </summary>
 public class WinOrLoseManager : MonoBehaviour
 {
     public GameObject clearUI, loseUI;
@@ -31,11 +34,13 @@ public class WinOrLoseManager : MonoBehaviour
             enemies = GameObject.FindGameObjectsWithTag("Enemy");
             boss = GameObject.FindGameObjectWithTag("Boss");
 
+            //“G‚ª‘S–Å‚µ‚½‚çŸ‚¿
             if ((enemies.Length == 0) && (boss == null)) {
                 clearUI.SetActive(true);
                 audioSource.volume = 0.3f;
                 Time.timeScale = 0f;
             }
+            //Player‚ª‘S–Å‚µ‚½‚ç•‰‚¯
             if(players.Length == 0 ) {
                 int totalCreateTimes = playerSpawnerScript.saruCreateTimes + playerSpawnerScript.houseDustCreateTimes + playerSpawnerScript.clioneCreateTimes + playerSpawnerScript.mijinkoCreateTimes + playerSpawnerScript.piroriCreateTimes;
                 if (totalCreateTimes == 0) {

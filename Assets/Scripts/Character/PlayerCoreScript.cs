@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
+/// <summary>
+/// Player側の核のスクリプト
+/// </summary>
 public class PlayerCoreScript : MonoBehaviour {
 
     public float hp;

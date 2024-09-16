@@ -3,6 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// 敵のスタンドを制御するスクリプト
+/// 
+/// このクラスは、敵キャラクターのスタンドを制御し、スタンドのHP、攻撃力、速度などを管理します。
+/// また、スタンドが特定の条件を満たした場合の動作を定義します。
+/// </summary>
+/// <remarks>
+/// メンバ変数:
+/// <para><b>GameObject standuser:</b> スタンドユーザーのゲームオブジェクト</para>
+/// <para><b>NavMeshAgent nav:</b> スタンドユーザーのNavMeshAgentコンポーネント</para>
+/// <para><b>float trueSpeed:</b> スタンドユーザーの元の速度</para>
+/// <para><b>Sprite clioneHealSprite:</b> クリオネの回復時のスプライト</para>
+/// <para><b>Sprite normalSprite:</b> 通常時のスプライト</para>
+/// <para><b>SpriteRenderer spriteRenderer:</b> スプライトレンダラー</para>
+/// <para><b>float hp:</b> スタンドのHP</para>
+/// <para><b>float attack:</b> スタンドの攻撃力</para>
+/// <para><b>float speed:</b> スタンドの速度</para>
+/// <para><b>float multiplySpeed:</b> スタンドの増殖速度</para>
+/// <para><b>float timer:</b> タイマー</para>
+/// <para><b>float multiplyTimer:</b> 増殖タイマー</para>
+/// <para><b>float multiplyLimit:</b> 増殖の制限</para>
+/// <para><b>float dis:</b> 距離</para>
+/// <para><b>GameObject deadEffectPrefab:</b> スタンドが破壊された際に生成するエフェクトのプレハブ</para>
+/// <para><b>GameObject attackEffectPrefab:</b> スタンドが攻撃した際に生成するエフェクトのプレハブ</para>
+/// </remarks>
 public class StandScript : MonoBehaviour
 {
     public GameObject standuser;

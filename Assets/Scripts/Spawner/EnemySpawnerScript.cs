@@ -33,6 +33,9 @@ public class EnemySpawnerScript : MonoBehaviour
         }
     }*/
 
+    /// <summary>
+    /// 100‘Ì‚Ì“G‚ğ¶¬‚·‚é
+    /// </summary>
     void Create() {
         for (int i = 0; i < 100; i++) {
             //Enemy(j)‚ÆEnemyStand(j)‚ğ¶¬

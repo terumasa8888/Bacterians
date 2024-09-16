@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Enemy側の核のスクリプト
+/// </summary>
 public class EnemyCoreScript : MonoBehaviour {
 
     public float hp;
