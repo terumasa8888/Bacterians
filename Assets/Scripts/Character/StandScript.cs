@@ -142,15 +142,6 @@ public class StandScript : MonoBehaviour
             hp = 0;
         }
 
-        /*if (collision.gameObject.CompareTag("EnemyCore")) {
-            if (timer > 2) {
-                timer = 0;
-                Stop();
-                collision.gameObject.GetComponent<EnemyCoreScript>().hp -= attack;
-
-                Invoke("Go", 2);
-            }
-        }*/
         if (collision.gameObject.CompareTag("Item")) {
             collision.gameObject.GetComponent<ItemScript>().hp -= attack;
         }

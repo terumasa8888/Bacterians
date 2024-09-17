@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ポーズボタンを押したときの処理
+/// Button関連の処理なのに名前の統一感がない
+/// </summary>
 public class PauseScript : MonoBehaviour {
 
     [SerializeField]

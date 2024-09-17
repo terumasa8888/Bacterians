@@ -11,7 +11,7 @@ public class PlayerSpawnerScript : MonoBehaviour
     public GameObject player;//Saruだけではなく一般化したいので、Findでとってくることになる。
     
     public int X_Max, X_Min, Y_Max, Y_Min;//ステージによって変わってくる
-    public float exclusiveX_Max, exclusiveX_Min, exclusiveY_Max, exclusiveY_Min;
+    public float exclusiveX_Max, exclusiveX_Min, exclusiveY_Max, exclusiveY_Min;//クリック範囲制限
 
     private Vector3 mousePosition;
     private Vector3 objPos;

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// コピペなので理解していない
+/// カメラの視野角をマウスホイールのスクロール入力に基づいて調整するためのスクリプト
+/// </summary>
 public class FieldOfViewScript : MonoBehaviour
 {
     float MouseZoomSpeed = 15.0f;

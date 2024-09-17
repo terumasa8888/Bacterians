@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
+
+/// <summary>
+/// Player(Standの下にいるやつ)の動作を制御するスクリプト
+/// ネストが深すぎる
+/// public変数のせいでガバガバ
+/// 変数名もよくない
+/// スピード保存するのにPlayerPrefs使っているが、もっと良い方法はないのか
+/// </summary>
 public class PlayerControllerScript : MonoBehaviour
 {
     private Vector3 mousePosition1;
@@ -40,7 +48,7 @@ public class PlayerControllerScript : MonoBehaviour
     void ChooseArea() {
 
         int num = buttonManagerScript.GetPlayerNumber();
-        if (num == 6) {
+        if (num == 6) {//キャラを選択していないなら
             if (EventSystem.current.IsPointerOverGameObject() != true) {//ボタンの上にカーソルがなければ
                 if (Input.GetMouseButtonDown(0)) {
                     //Debug.Log("押したよ");
@@ -56,8 +64,8 @@ public class PlayerControllerScript : MonoBehaviour
                             if (obj != null) {
                                 PlayerScript script = obj.GetComponent<PlayerScript>();
                                 script.mousePosition = objPos1;
-                                script.distinationFlag = false;
-
+                                //script.distinationFlag = false;
+                                //保存しておいたキャラのスピードを戻す
                                 obj.GetComponent<NavMeshAgent>().speed = PlayerPrefs.GetFloat(obj.name);
                             }
                         }
@@ -84,13 +92,13 @@ public class PlayerControllerScript : MonoBehaviour
                         GameObject[] objects = GameObject.FindGameObjectsWithTag("NavMesh");
 
                         foreach (GameObject obj in objects) {
-                            if (Vector3.Distance(obj.transform.position, objPos1) <= 2) {
+                            if (Vector3.Distance(obj.transform.position, objPos1) <= 2) {//2m以内なら
 
                                 float speed = obj.GetComponent<NavMeshAgent>().speed;
                                 PlayerPrefs.SetFloat(obj.name, speed);
-                                list.Add(obj);
+                                list.Add(obj);//リストに追加
 
-                                obj.GetComponent<NavMeshAgent>().speed = 0;
+                                obj.GetComponent<NavMeshAgent>().speed = 0;//止める
 
                                 /*PlayerScript script = obj.GetComponent<PlayerScript>();
                                 script.mousePosition = mousePosition1;
@@ -98,7 +106,7 @@ public class PlayerControllerScript : MonoBehaviour
 
                             }
                         }
-                        if (list.Count == 0) {//リストの要素0
+                        if (list.Count == 0) {//リストの要素0=選択範囲にキャラがいない
                             //Debug.Log("リストの要素0");
                             count = 0;
                             circle.SetActive(false);

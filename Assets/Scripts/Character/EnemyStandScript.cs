@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 /// <summary>
 /// 敵のスタンド(被せもの)のスクリプト
-/// 
+/// 名前な幽波紋(stand)では伝わらない
 /// </summary>
 public class EnemyStandScript : MonoBehaviour {
 
@@ -45,17 +45,6 @@ public class EnemyStandScript : MonoBehaviour {
                 Invoke("Go", 2);//2秒後にGo()を呼ぶ
             }
         }
-        //プレイヤーのコアに当たった時
-        if(collision.gameObject.CompareTag("PlayerCore")) {
-            if (timer > 2) {
-                timer = 0;
-                Stop();
-                collision.gameObject.GetComponent<PlayerCoreScript>().hp -= attack;
-
-                Invoke("Go", 2);
-            }
-        }
-
     }
 
     public void SetStandStatus(float hp, float attack) {//セッター

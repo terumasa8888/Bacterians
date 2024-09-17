@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+/// <summary>
+/// 敵を生成するスポナーのスクリプト
+/// </summary>
 public class EnemySpawnerScript : MonoBehaviour
 {
     public GameObject enemy;
@@ -14,24 +18,9 @@ public class EnemySpawnerScript : MonoBehaviour
 
     void Start()
     {
-        GameObject enemyCore = GameObject.FindWithTag("EnemyCore");
-        //v = enemyCore.transform.position;
         v = transform.position;
-        //Debug.Log(v);
-
         Create();
     }
-
-    /*void Update()
-    {
-        timer += Time.deltaTime;
-
-        if (timer >= 5) {
-            Create();
-            timer = 0;
-
-        }
-    }*/
 
     /// <summary>
     /// 100体の敵を生成する

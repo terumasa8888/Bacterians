@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// 各キャラクターボタンや移動ボタン、サークルの表示、
+/// ボタンサークルの回転を管理するスクリプト
+/// 同じ処理なのでなんとかまとめられんかな
+/// </summary>
 public class ButtonManagerScript : MonoBehaviour
 {
     //Button宣言
@@ -13,6 +19,7 @@ public class ButtonManagerScript : MonoBehaviour
     public GameObject mijinkoButton;
     public GameObject piroriButton;
     public GameObject moveButton;
+
     public GameObject circle;
     public GameObject buttonCircle;
 
@@ -50,32 +57,32 @@ public class ButtonManagerScript : MonoBehaviour
 
 
     public void ResetOther() {
-        saruButtonScript.tf = false;
-        houseDustButtonScript.tf = false;
-        clioneButtonScript.tf = false;
-        mijinkoButtonScript.tf = false;
-        piroriButtonScript.tf = false;
-        moveButtonScript.tf = false;
+        saruButtonScript.ResetClickState();
+        houseDustButtonScript.ResetClickState();
+        clioneButtonScript.ResetClickState();
+        mijinkoButtonScript.ResetClickState();
+        piroriButtonScript.ResetClickState();
+        moveButtonScript.ResetClickState();
         circle.SetActive(false);
     }
 
     public int GetPlayerNumber() {
-        if (saruButtonScript.tf) {
+        if (saruButtonScript.IsClicked()) {
             return 1;
         }
-        else if (houseDustButtonScript.tf) {
+        else if (houseDustButtonScript.IsClicked()) {
             return 2;
         }
-        else if (clioneButtonScript.tf) {
+        else if (clioneButtonScript.IsClicked()) {
             return 3;
         }
-        else if (mijinkoButtonScript.tf) {
+        else if (mijinkoButtonScript.IsClicked()) {
             return 4;
         }
-        else if (piroriButtonScript.tf) {
+        else if (piroriButtonScript.IsClicked()) {
             return 5;
         }
-        else if (moveButtonScript.tf) {
+        else if (moveButtonScript.IsClicked()) {
             return 6;
         }
         else {

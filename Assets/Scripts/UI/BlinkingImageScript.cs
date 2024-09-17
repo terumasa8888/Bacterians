@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// キャラクターを置ける範囲(赤い長方形)を点滅させるスクリプト
+/// public classってなんだろう
+/// </summary>
 public class BlinkingImageScript : MonoBehaviour
 {
     [SerializeField]

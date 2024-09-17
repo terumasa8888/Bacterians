@@ -4,6 +4,9 @@ using UnityEngine;
 
 /// <summary>
 /// Player, Enemy‚Ì”‚ğŠÄ‹‚µAŸ”s‚ğ”»’è‚·‚é
+/// –¼‘O•Ï
+/// BGM,UI‘€ì‚È‚Ç‚â‚è‚·‚¬
+/// ’PˆêÓ”C‚ÌŒ´‘¥‚É”½‚µ‚Ä‚¢‚é
 /// </summary>
 public class WinOrLoseManager : MonoBehaviour
 {

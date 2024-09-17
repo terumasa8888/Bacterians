@@ -461,9 +461,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1437751018}
+        - m_Target: {fileID: 1996404334}
           m_TargetAssemblyTypeName: HowToPlayManagerScript, Assembly-CSharp
-          m_MethodName: NextNext
+          m_MethodName: Next
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2808,7 +2808,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1437751018}
+      - m_Target: {fileID: 1996404334}
         m_TargetAssemblyTypeName: HowToPlayManagerScript, Assembly-CSharp
         m_MethodName: HowToPlayButton
         m_Mode: 1
@@ -3026,7 +3026,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1437751017}
   - component: {fileID: 1437751016}
-  - component: {fileID: 1437751018}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -3060,22 +3059,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1437751018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1437751015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839ca072bb2bc5046a81816ee98be3c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  howToPlayUI1: {fileID: 1507865239}
-  howToPlayUI2: {fileID: 238908651}
-  howToPlayUI3: {fileID: 1806992302}
-  backGround: {fileID: 1107142664}
 --- !u!1 &1456099938
 GameObject:
   m_ObjectHideFlags: 0
@@ -3354,7 +3337,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1437751018}
+        - m_Target: {fileID: 1996404334}
           m_TargetAssemblyTypeName: HowToPlayManagerScript, Assembly-CSharp
           m_MethodName: Next
           m_Mode: 1
@@ -3916,9 +3899,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1437751018}
+        - m_Target: {fileID: 1996404334}
           m_TargetAssemblyTypeName: HowToPlayManagerScript, Assembly-CSharp
-          m_MethodName: End
+          m_MethodName: Next
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4200,6 +4183,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909583075}
   m_CullTransparentMesh: 1
+--- !u!1 &1996404333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1996404335}
+  - component: {fileID: 1996404334}
+  m_Layer: 0
+  m_Name: HowToPlayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1996404334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996404333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7a94cce0169434f959b7b533b2addb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  howToPlayUIs:
+  - {fileID: 1507865239}
+  - {fileID: 238908651}
+  - {fileID: 1806992302}
+  titleUI: {fileID: 1107142664}
+--- !u!4 &1996404335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996404333}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -64.23369, y: 169.16891, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2042084931
 GameObject:
   m_ObjectHideFlags: 0

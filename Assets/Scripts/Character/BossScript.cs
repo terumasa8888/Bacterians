@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// stage3のボスのスクリプト
+/// 一番近いプレイヤーのキャラに向かってn-way弾を発射する
+/// </summary>
 public class BossScript : MonoBehaviour
 {
     public GameObject enemyBulletPrefab;

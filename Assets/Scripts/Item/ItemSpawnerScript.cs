@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// アイテムを生成するスクリプト
+/// </summary>
 public class ItemSpawnerScript : MonoBehaviour
 {
     public GameObject item;//prefab

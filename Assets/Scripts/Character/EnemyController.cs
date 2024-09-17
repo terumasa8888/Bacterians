@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+/// <summary>
+/// 敵の移動を制御するスクリプト
+/// </summary>
 public class EnemyController : MonoBehaviour {
 
     NavMeshAgent enemyNav;
-    GameObject playerCore;
-
     float timer;
     float dis = 0;           //距離保存用
     float nearDis = 100;          //最も近いオブジェクトの距離        
@@ -16,7 +18,6 @@ public class EnemyController : MonoBehaviour {
 
     void Start() {
         enemyNav = GetComponent<NavMeshAgent>();
-        playerCore = GameObject.FindWithTag("PlayerCore");
 
         float x = Random.Range(-0.1f, 0.1f);
         float y = Random.Range(-0.1f, 0.1f);

@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// アイテムのスクリプト
+/// hpが0になると、プレイヤーの攻撃力を3倍にする
+/// 攻撃力を直接いじってるのがよくない
+/// カプセル化するべき
+/// </summary>
 public class ItemScript : MonoBehaviour {
 
     public float hp;

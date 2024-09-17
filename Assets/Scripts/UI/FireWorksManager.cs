@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// クリア音と花火を生成するスクリプト
+/// 名前はFireWorksManagerだが、花火以外の処理も含まれている
+/// なので、名前を変更するか、別のスクリプトに分ける
+/// </summary>
 public class FireWorksManager : MonoBehaviour
 {
     public GameObject fireWorkPrefab;

@@ -2,6 +2,12 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// たぶんコピペなのであんまり理解していない。要復習
+/// カメラとキャンバスのアスペクト比を管理するクラス。
+/// 指定されたアスペクト比に基づいて、カメラのビューポートとキャンバスのスケーリングを調整します。
+/// </summary>
 public class AspectRatioManager : MonoBehaviour {
 
 	public float x_aspect = 1242f;
