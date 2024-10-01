@@ -1,0 +1,398 @@
+﻿@startuml Bacterians
+
+class PlayerSpawnerScript {
+    + player: GameObject
+    + X_Max: int
+    + X_Min: int
+    + Y_Max: int
+    + Y_Min: int
+    + exclusiveX_Max: float
+    + exclusiveX_Min: float
+    + exclusiveY_Max: float
+    + exclusiveY_Min: float
+    - mousePosition: Vector3
+    - objPos: Vector3
+    - hp: float
+    - attack: float
+    - speed: float
+    - multiplySpeed: float
+    - count: float
+    - sprite: Sprite
+    - createTimes: int
+    - multiplyTimes: int
+    - j: int
+    + saruHP: float
+    + saruAttack: float
+    + saruSpeed: float
+    + saruMultiplySpeed: float
+    + saruCount: float
+    + houseDustHP: float
+    + houseDustAttack: float
+    + houseDustSpeed: float
+    + houseDustMultiplySpeed: float
+    + houseDustCount: float
+    + clioneHP: float
+    + clioneAttack: float
+    + clioneSpeed: float
+    + clioneMultiplySpeed: float
+    + clioneCount: float
+    + mijinkoHP: float
+    + mijinkoAttack: float
+    + mijinkoSpeed: float
+    + mijinkoMultiplySpeed: float
+    + mijinkoCount: float
+    + piroriHP: float
+    + piroriAttack: float
+    + piroriSpeed: float
+    + piroriMultiplySpeed: float
+    + piroriCount: float
+    + saruSprite: Sprite
+    + houseDustSprite: Sprite
+    + clioneSprite: Sprite
+    + mijinkoSprite: Sprite
+    + piroriSprite: Sprite
+    + saruCreateTimes: int
+    + houseDustCreateTimes: int
+    + clioneCreateTimes: int
+    + mijinkoCreateTimes: int
+    + piroriCreateTimes: int
+    + saru: GameObject
+    + houseDust: GameObject
+    + clione: GameObject
+    + mijinko: GameObject
+    + pirori: GameObject
+    + playerStand: GameObject
+    + saruButtonText: Text
+    + houseDustButtonText: Text
+    + clioneButtonText: Text
+    + mijinkoButtonText: Text
+    + piroriButtonText: Text
+    - buttonManager: GameObject
+    - buttonManagerScript: ButtonManagerScript
+    + Start()
+    + Update()
+    - CreatePlayer()
+}
+
+class EnemySpawnerScript {
+    + enemy: GameObject
+    + enemyStand: GameObject
+    - v: Vector3
+    - timer: float
+    - j: int
+    + hp: float
+    + attack: float
+    + speed: float
+    + Start()
+    - Create()
+}
+
+class ButtonManagerScript{
+    + saruButton: GameObject
+    + houseDustButton: GameObject
+    + clioneButton: GameObject
+    + mijinkoButton: GameObject
+    + piroriButton: GameObject
+    + moveButton: GameObject
+    + circle: GameObject
+    + buttonCircle: GameObject
+    - saruButtonScript: CharacterButtonScript
+    - houseDustButtonScript: CharacterButtonScript
+    - clioneButtonScript: CharacterButtonScript
+    - mijinkoButtonScript: CharacterButtonScript
+    - piroriButtonScript: CharacterButtonScript
+    - moveButtonScript: CharacterButtonScript
+    + angle: float
+    + rot: bool
+    + Start()
+    + LateUpdate()
+    + ResetOther()
+    + GetPlayerNumber(): int
+}
+
+class PlayerControllerScript{
+    - mousePosition1: Vector3
+    - objPos1: Vector3
+    - obj: GameObject
+    - buttonManager: GameObject
+    - buttonManagerScript: ButtonManagerScript
+    - count: int
+    - list: List<GameObject>
+    + circle: GameObject
+    + angle: float
+    + rot: bool
+    + Start()
+    + Update()
+    + LateUpdate()
+    + ChooseArea()
+}
+
+class PlayerScript{
+    + mousePosition: Vector3
+    + distinationFlag: bool
+    - playerNav: NavMeshAgent
+    + Start()
+    + FixedUpdate()
+}
+
+class EnemyController {
+    - enemyNav: NavMeshAgent
+    - timer: float
+    - dis: float
+    - nearDis: float
+    - targetObj: GameObject
+    - players: GameObject[]
+    + Start()
+    + Update()
+    - Search()
+}
+
+class StandScript {
+    + standuser: GameObject
+    - nav: NavMeshAgent
+    - trueSpeed: float
+    + clioneHealSprite: Sprite
+    - normalSprite: Sprite
+    - spriteRenderer: SpriteRenderer
+    + hp: float
+    + attack: float
+    + speed: float
+    + multiplySpeed: float
+    - timer: float
+    - multiplyTimer: float
+    - multiplyLimit: float
+    - dis: float
+    + deadEffectPrefab: GameObject
+    + attackEffectPrefab: GameObject
+    + Start()
+    + Update()
+    + OnCollisionEnter2D(Collision2D collision)
+    + SetStandStatus(float hp, float attack, float speed, float multiplySpeed)
+    - Stop()
+    - Go()
+    - heal()
+    - back()
+}
+
+class EnemyStandScript {
+    + standuser: GameObject
+    + hp: float
+    + attack: float
+    + deadEffectPrefab: GameObject
+    - nav: NavMeshAgent
+    - trueSpeed: float
+    - timer: float
+    + Start()
+    + Update()
+    + OnCollisionEnter2D(Collision2D collision)
+    + SetStandStatus(float hp, float attack)
+    - Stop()
+    - Go()
+}
+
+class BossScript {
+    + enemyBulletPrefab: GameObject
+    + timer: float
+    + hp: float
+    + _Velocity_0: float
+    + Degree: float
+    + Angle_Split: float
+    - _theta: float
+    - PI: float
+    - rad: float
+    - v: Vector3
+    - v1: Vector3
+    - v2: Vector3
+    - dis: float
+    - nearDis: float
+    - targetObj: GameObject
+    - players: GameObject[]
+    - rid2d: Rigidbody2D
+    + Start()
+    + Update()
+}
+
+class EnemyBulletScript {
+    + hitEffectPrefab: GameObject
+    + Velocity_0: float
+    + theta: float
+    - rid2d: Rigidbody2D
+    + Start()
+    + Update()
+}
+
+
+class ItemScript {
+    + hp: float
+    + Start()
+    + Update()
+}
+
+class ItemSpawnerScript {
+    + item: GameObject
+    + x_Max: float
+    + x_Min: float
+    + y_Max: float
+    + y_Min: float
+    + instantiateTime: float
+    + Start()
+    + Update()
+    - InstantiateItem()
+}
+
+
+class LoadManager {
+    + Start()
+}
+
+class WinOrLoseManager {
+    + clearUI: GameObject
+    + loseUI: GameObject
+    + bgm: GameObject
+    - audioSource: AudioSource
+    - playerSpawner: GameObject
+    - playerSpawnerScript: PlayerSpawnerScript
+    - timer: float
+    - players: GameObject[]
+    - enemies: GameObject[]
+    - boss: GameObject
+    + Start()
+    + Update()
+}
+
+
+class SceneManagerScript {
+    + Stage1()
+    + Stage2()
+    + Stage3()
+    + Select()
+    + Clear()
+    + Title()
+}
+
+
+class CharacterButtonScript{
+    - isClicked: bool
+    - buttonManager: GameObject
+    - buttonManagerScript: ButtonManagerScript
+    + Start()
+    + OnClick()
+    + IsClicked(): bool
+    + ResetClickState()
+}
+
+class HowToPlayManagerScript {
+    - howToPlayUIs: GameObject[]
+    - titleUI: GameObject
+    - currentIndex: int
+    + HowToPlayButton()
+    + Next()
+    - End()
+    - UpdateUI()
+}
+
+class PauseScript {
+    + pauseButton: GameObject
+    + reStartButton: GameObject
+    + pausePanel: GameObject
+    + StopGame()
+    + ReStartGame()
+}
+
+class RetireButtonScript {
+    + Retire()
+}
+
+
+class AspectRatioManager {
+    + x_aspect: float
+    + y_aspect: float
+    + canvasScaler: CanvasScaler[]
+    + Awake()
+    - calcAspect(float width, float height): Rect
+    - CheckScreenRatio(int i): int
+}
+
+class BlinkingImageScript {
+    - speed: float
+    - time: float
+    - blinkingImage: Image
+    + Start()
+    + Update()
+    - GetAlphaColor(Color color): Color
+}
+
+class FieldOfViewScript {
+    - MouseZoomSpeed: float
+    - ZoomMinBound: float
+    - ZoomMaxBound: float
+    - cam: Camera
+    + Start()
+    + Update()
+    - CameraZoom()
+    - Zoom(float deltaMagnitudeDiff, float speed)
+}
+
+class FireWorksManager {
+    + fireWorkPrefab: GameObject
+    + clearSound: GameObject
+    - timer: float
+    + Start()
+    + Update()
+}
+
+class UIScaleScript {
+    + period: float
+    + time: float
+    + changeSpeed: float
+    + destroyTime: float
+    + enlarge: bool
+    + Start()
+    + Update()
+}
+
+
+class StageSelectManager {
+    - isCalledOnce: bool
+    + bgm: GameObject
+    - audioSource: AudioSource
+    + stage2Button: GameObject
+    + stage3Button: GameObject
+    + panel2: GameObject
+    + panel3: GameObject
+    + imageLine2: GameObject
+    + imageLine3: GameObject
+    - stage2ButtonImage: Image
+    - stage3ButtonImage: Image
+    + AllClearUI: GameObject
+    + Start()
+    + Update()
+    - TurnOffAlpha(Color color): Color
+    - TurnOnAlpha(Color color): Color
+}
+
+
+ButtonManagerScript --> CharacterButtonScript : 関連 (Association)
+
+CharacterButtonScript --> ButtonManagerScript : 関連 (Association)
+
+PlayerControllerScript --> ButtonManagerScript : 関連 (Association)
+PlayerControllerScript ..> PlayerScript : 依存 (Dependency)
+
+BossScript --> EnemyBulletScript : 関連 (Association)
+EnemySpawnerScript --> EnemyStandScript : 関連 (Association)
+
+EnemyStandScript --> StandScript : 関連 (Association)
+ItemScript --> StandScript : 関連 (Association)
+
+WinOrLoseManager --> PlayerSpawnerScript : 関連 (Association)
+StandScript --> EnemyStandScript : 関連 (Association)
+StandScript --> BossScript : 関連 (Association)
+StandScript --> EnemyBulletScript : 関連 (Association)
+StandScript --> ItemScript : 関連 (Association)
+
+PlayerSpawnerScript --> ButtonManagerScript : 関連 (Association)
+PlayerSpawnerScript --> PlayerScript : 関連 (Association)
+PlayerSpawnerScript --> StandScript : 関連 (Association)
+
+@enduml
