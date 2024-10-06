@@ -31,4 +31,5 @@ public class PlayerScript : MonoBehaviour {
             playerNav.SetDestination(mousePosition);
         }
     }
+
 }

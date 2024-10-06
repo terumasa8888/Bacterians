@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UniRx;
 
 
 /// <summary>
@@ -10,9 +11,7 @@ using UnityEngine.UI;
 /// ボタンサークルの回転を管理するスクリプト
 /// 同じ処理なのでなんとかまとめられんかな
 /// </summary>
-public class ButtonManagerScript : MonoBehaviour
-{
-    //Button宣言
+public class ButtonManagerScript : MonoBehaviour {
     public GameObject saruButton;
     public GameObject houseDustButton;
     public GameObject clioneButton;
@@ -23,30 +22,20 @@ public class ButtonManagerScript : MonoBehaviour
     public GameObject circle;
     public GameObject buttonCircle;
 
-
-    //ButtonScript宣言
-    CharacterButtonScript saruButtonScript;
-    CharacterButtonScript houseDustButtonScript;
-    CharacterButtonScript clioneButtonScript;
-    CharacterButtonScript mijinkoButtonScript;
-    CharacterButtonScript piroriButtonScript;
-    CharacterButtonScript moveButtonScript;
-
     public float angle = 1;
     public bool rot = true;
 
+    private ReactiveProperty<ButtonType> selectedButtonType = new ReactiveProperty<ButtonType>(ButtonType.None);
 
+    public IReadOnlyReactiveProperty<ButtonType> SelectedButtonType => selectedButtonType;
 
-    void Start()
-    {
+    void Start() {
+        var buttons = new List<GameObject> { saruButton, houseDustButton, clioneButton, mijinkoButton, piroriButton, moveButton };
 
-        saruButtonScript = saruButton.GetComponent<CharacterButtonScript>();
-        houseDustButtonScript = houseDustButton.GetComponent<CharacterButtonScript>();
-        clioneButtonScript = clioneButton.GetComponent<CharacterButtonScript>();
-        mijinkoButtonScript = mijinkoButton.GetComponent<CharacterButtonScript>();
-        piroriButtonScript = piroriButton.GetComponent<CharacterButtonScript>();
-        moveButtonScript = moveButton.GetComponent<CharacterButtonScript>();
-
+        foreach (var button in buttons) {
+            var buttonScript = button.GetComponent<CharacterButtonScript>();
+            buttonScript.OnClickAsObservable.Subscribe(clickedButton => OnButtonClicked(clickedButton));
+        }
     }
 
     void LateUpdate() {
@@ -55,38 +44,25 @@ public class ButtonManagerScript : MonoBehaviour
         }
     }
 
-
-    public void ResetOther() {
-        saruButtonScript.ResetClickState();
-        houseDustButtonScript.ResetClickState();
-        clioneButtonScript.ResetClickState();
-        mijinkoButtonScript.ResetClickState();
-        piroriButtonScript.ResetClickState();
-        moveButtonScript.ResetClickState();
-        circle.SetActive(false);
-    }
-
-    public int GetPlayerNumber() {
-        if (saruButtonScript.IsClicked()) {
-            return 1;
-        }
-        else if (houseDustButtonScript.IsClicked()) {
-            return 2;
-        }
-        else if (clioneButtonScript.IsClicked()) {
-            return 3;
-        }
-        else if (mijinkoButtonScript.IsClicked()) {
-            return 4;
-        }
-        else if (piroriButtonScript.IsClicked()) {
-            return 5;
-        }
-        else if (moveButtonScript.IsClicked()) {
-            return 6;
+    private void OnButtonClicked(CharacterButtonScript clickedButton) {
+        ResetOther();
+        if (clickedButton.IsSelected()) {
+            buttonCircle.GetComponent<RectTransform>().position = clickedButton.GetComponent<RectTransform>().position;
+            buttonCircle.SetActive(true);
+            selectedButtonType.Value = clickedButton.ButtonType; // 選択されたボタンの種類をReactivePropertyに保存
         }
         else {
-            return 0;
+            buttonCircle.SetActive(false);
+            selectedButtonType.Value = ButtonType.None; // 選択が解除された場合は None にする
         }
+    }
+
+    public void ResetOther() {
+        var buttons = new List<GameObject> { saruButton, houseDustButton, clioneButton, mijinkoButton, piroriButton, moveButton };
+        foreach (var button in buttons) {
+            button.GetComponent<CharacterButtonScript>().ResetSelection();
+        }
+        circle.SetActive(false);
+        selectedButtonType.Value = ButtonType.None; // リセット時に選択を解除
     }
 }

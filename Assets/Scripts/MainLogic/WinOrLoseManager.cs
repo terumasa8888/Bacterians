@@ -8,8 +8,7 @@ using UnityEngine;
 /// BGM,UI‘€ì‚È‚Ç‚â‚è‚·‚¬
 /// ’PˆêÓ”C‚ÌŒ´‘¥‚É”½‚µ‚Ä‚¢‚é
 /// </summary>
-public class WinOrLoseManager : MonoBehaviour
-{
+public class WinOrLoseManager : MonoBehaviour {
     public GameObject clearUI, loseUI;
     public GameObject bgm;
     AudioSource audioSource;
@@ -20,15 +19,13 @@ public class WinOrLoseManager : MonoBehaviour
     GameObject[] players, enemies;
     GameObject boss;
 
-    void Start()
-    {
+    void Start() {
         playerSpawner = GameObject.Find("PlayerSpawner");
         playerSpawnerScript = playerSpawner.GetComponent<PlayerSpawnerScript>();
         audioSource = bgm.GetComponent<AudioSource>();
     }
 
-    void Update()
-    {
+    void Update() {
         timer += Time.deltaTime;
 
         if (timer >= 3) {
@@ -44,8 +41,8 @@ public class WinOrLoseManager : MonoBehaviour
                 Time.timeScale = 0f;
             }
             //Player‚ª‘S–Å‚µ‚½‚ç•‰‚¯
-            if(players.Length == 0 ) {
-                int totalCreateTimes = playerSpawnerScript.saruCreateTimes + playerSpawnerScript.houseDustCreateTimes + playerSpawnerScript.clioneCreateTimes + playerSpawnerScript.mijinkoCreateTimes + playerSpawnerScript.piroriCreateTimes;
+            if (players.Length == 0) {
+                int totalCreateTimes = playerSpawnerScript.GetTotalCreatableTimes();
                 if (totalCreateTimes == 0) {
                     loseUI.SetActive(true);
                     audioSource.volume = 0.3f;

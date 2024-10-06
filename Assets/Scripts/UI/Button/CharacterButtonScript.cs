@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,4 +56,40 @@ public class CharacterButtonScript : MonoBehaviour
     }
 
 
+}
+*/
+using System;
+using UniRx;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CharacterButtonScript : MonoBehaviour {
+    private bool isSelected = false;
+    private Subject<CharacterButtonScript> onClickSubject = new Subject<CharacterButtonScript>();
+
+    public IObservable<CharacterButtonScript> OnClickAsObservable => onClickSubject;
+
+    [SerializeField]
+    private ButtonType buttonType; // インスペクターで設定するためのフィールド
+
+    public ButtonType ButtonType {
+        get => buttonType; // 外部から読み取り専用
+    }
+
+    void Start() {
+        GetComponent<Button>().onClick.AddListener(OnButtonClicked);
+    }
+
+    private void OnButtonClicked() {
+        isSelected = !isSelected;
+        onClickSubject.OnNext(this);
+    }
+
+    public bool IsSelected() {
+        return isSelected;
+    }
+
+    public void ResetSelection() {
+        isSelected = false;
+    }
 }
