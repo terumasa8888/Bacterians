@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// ボス敵の弾(ザコ敵)のスクリプト
+/// 画面外で自動で消滅する
+/// </summary>
 public class EnemyBulletScript : MonoBehaviour {
 
     public GameObject hitEffectPrefab;

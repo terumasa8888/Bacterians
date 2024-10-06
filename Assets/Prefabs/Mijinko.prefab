@@ -120,3 +120,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mousePosition: {x: 0, y: 0, z: 0}
   distinationFlag: 1
+  characterData: {fileID: 11400000, guid: 24d1a11ce76f523418450b4c6f27c13e, type: 2}

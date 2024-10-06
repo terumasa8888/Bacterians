@@ -65,13 +65,15 @@ public class StandScript : MonoBehaviour
         this.transform.position = standuser.transform.position;
         timer += Time.deltaTime;
         multiplyTimer += Time.deltaTime;
-
+        //ここはStatusで実装済み
         if (hp <= 0) {
             Instantiate(deadEffectPrefab, transform.position, Quaternion.identity);
             Destroy(standuser);
             Destroy(this.gameObject);
         }
 
+
+        //ここはクラス分けるべき(増殖)
         if(multiplyTimer > 10) {//ここの5はキャラごとにインスペクターで変えられるように
             if (multiplyLimit < 2) {
                 multiplyTimer = 0;
@@ -79,18 +81,18 @@ public class StandScript : MonoBehaviour
                 //Debug.Log(multiplyLimit);
                 var o1 = Instantiate(standuser);
                 o1.name = standuser.name + "(Clone)";//クローンは同じ名前
-                var o2 = Instantiate(this.gameObject);
+                //var o2 = Instantiate(this.gameObject);
 
-                o1.GetComponent<NavMeshAgent>().speed = speed;
-                StandScript script = o2.GetComponent<StandScript>();
-                script.SetStandStatus(hp / 2, attack / 2, speed, multiplySpeed);
-                script.standuser = o1;
+                //o1.GetComponent<NavMeshAgent>().speed = speed;
+                //StandScript script = o2.GetComponent<StandScript>();
+                //script.SetStandStatus(hp / 2, attack / 2, speed, multiplySpeed);
+                //script.standuser = o1;
             }
         }
         //メモ・Transform型とGameObject型・GameObject型はstanduser.positionではだめ。standuser.transform.position
 
 
-
+        /*//ここはHealableなどでクラス分けるべき
         if (standuser.name.Contains("Clione")) {//クリオネなら
             if (timer > 5) {
                 timer = 0;
@@ -104,22 +106,23 @@ public class StandScript : MonoBehaviour
                         if (dis < 2) {
                             obj.GetComponent<StandScript>().hp += 50;//回復
                             Debug.Log("回復");
-                            heal();
+                            //heal();
+                            //回復ならエフェクト出す方がいい
                             Invoke("back", 2);
                         }
                     }
                 }
             }
-        }
+        }*/
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    /*private void OnCollisionEnter2D(Collision2D collision) {
 
         if (collision.gameObject.CompareTag("Enemy")) {
             if (timer > 2) {
                 timer = 0;
                 Stop();
-                collision.gameObject.GetComponent<EnemyStandScript>().hp -= attack;
+                //collision.gameObject.GetComponent<EnemyStandScript>().hp -= attack;
 
                 Invoke("Go", 2);
             }
@@ -142,15 +145,6 @@ public class StandScript : MonoBehaviour
             hp = 0;
         }
 
-        /*if (collision.gameObject.CompareTag("EnemyCore")) {
-            if (timer > 2) {
-                timer = 0;
-                Stop();
-                collision.gameObject.GetComponent<EnemyCoreScript>().hp -= attack;
-
-                Invoke("Go", 2);
-            }
-        }*/
         if (collision.gameObject.CompareTag("Item")) {
             collision.gameObject.GetComponent<ItemScript>().hp -= attack;
         }
@@ -160,9 +154,9 @@ public class StandScript : MonoBehaviour
                 Stop();
             //}
         }
-    }
+    }*/
 
-    public void SetStandStatus(float hp, float attack, float speed, float multiplySpeed) {
+    /*public void SetStandStatus(float hp, float attack, float speed, float multiplySpeed) {
         this.hp = hp;
         this.attack = attack;
         this.speed = speed;
@@ -177,12 +171,12 @@ public class StandScript : MonoBehaviour
         nav.speed = trueSpeed;
     }
 
-    void heal() {
+    void heal() {//クリオネの回復時のスプライト
         spriteRenderer.sprite = clioneHealSprite;
     }
 
-    void back() {
+    void back() {//クリオネ通常時のスプライト
         spriteRenderer.sprite = normalSprite;
-    }
+    }*/
 
 }

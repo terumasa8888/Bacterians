@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// ステージセレクト画面のスクリプト
+/// 透明度とかを使ってステージの解放状況を表現している
+/// </summary>
 public class StageSelectManager : MonoBehaviour
 {
     bool isCalledOnce = false;
