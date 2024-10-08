@@ -31,7 +31,6 @@ public class PlayerSpawnerScript : MonoBehaviour {
     [SerializeField] private GameObject clione;
     [SerializeField] private GameObject mijinko;
     [SerializeField] private GameObject pirori;
-    [SerializeField] private GameObject playerStand;
 
     private GameObject buttonManager;
     private ButtonManagerScript buttonManagerScript;
@@ -68,9 +67,19 @@ public class PlayerSpawnerScript : MonoBehaviour {
         uiManager.InitializeButtonTexts(creatableTimes);
 
         // ButtonManagerScriptのSelectedButtonTypeを監視
-        buttonManagerScript.SelectedButtonType
+        /*buttonManagerScript.SelectedButtonType
             .Where(buttonType => buttonType != ButtonType.None)
             .Subscribe(buttonType => CreatePlayer(buttonType))
+            .AddTo(this);*/
+        //ここ理解できてない
+        buttonManagerScript.SelectedButtonType
+            .Where(buttonType => buttonType != ButtonType.None)
+            .Subscribe(buttonType => {
+                Observable.EveryUpdate()
+                    .Where(_ => Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+                    .Subscribe(_ => CreatePlayer(buttonType))
+                    .AddTo(this);
+            })
             .AddTo(this);
     }
 
@@ -79,8 +88,8 @@ public class PlayerSpawnerScript : MonoBehaviour {
         if (!Input.GetMouseButtonDown(0)) return;
 
         mousePosition = Input.mousePosition; // その座標を取得
-        mousePosition.z = 0f;
         objPos = Camera.main.ScreenToWorldPoint(mousePosition); // ワールド座標に変換
+        objPos.z = 0f;
 
         if (objPos.x <= X_Min || objPos.x >= X_Max || objPos.y <= Y_Min || objPos.y >= Y_Max) return;
         if ((objPos.x >= exclusiveX_Min && objPos.x <= exclusiveX_Max) && (objPos.y >= exclusiveY_Min && objPos.y <= exclusiveY_Max)) return;
@@ -88,15 +97,21 @@ public class PlayerSpawnerScript : MonoBehaviour {
 
         GameObject characterPrefab = characterPrefabs[buttonType];
         for (int i = 0; i < 5; i++) {
-            GameObject character = Instantiate(characterPrefab) as GameObject;
+            GameObject character = Instantiate(characterPrefab);
             character.transform.position = objPos;
             character.transform.rotation = Quaternion.identity;
+            ScatterPosition(character);
 
-            // プレイヤーのスクリプトに目的地としてマウスの座標を渡す
-            PlayerScript playerScript = character.GetComponent<PlayerScript>();
-            playerScript.mousePosition = objPos;
+            NavMeshAgent2D nav = character.GetComponent<NavMeshAgent2D>();
+            nav.destination = objPos;
         }
-        DecreaseCreatableTimes(buttonType); // 生成可能回数を減らす
+        DecreaseCreatableTimes(buttonType);
+    }
+
+    private void ScatterPosition(GameObject character) {
+        float x = Random.Range(-0.5f, 0.5f);
+        float y = Random.Range(-0.5f, 0.5f);
+        character.transform.Translate(x, y, 0);
     }
 
     private void DecreaseCreatableTimes(ButtonType buttonType) {
@@ -104,7 +119,6 @@ public class PlayerSpawnerScript : MonoBehaviour {
         uiManager.UpdateButtonText(buttonType, creatableTimes[buttonType]); // UIを更新
     }
 
-    // 新しいメソッドを追加
     public int GetTotalCreatableTimes() {
         int total = 0;
         foreach (var times in creatableTimes.Values) {
