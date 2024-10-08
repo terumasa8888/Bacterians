@@ -80,7 +80,7 @@ public class CharacterButtonScript : MonoBehaviour {
         GetComponent<Button>().onClick.AddListener(OnButtonClicked);
     }
 
-    private void OnButtonClicked() {
+    public void OnButtonClicked() {
         isSelected = !isSelected;
         onClickSubject.OnNext(this);
     }

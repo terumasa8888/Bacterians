@@ -11,7 +11,6 @@ using UnityEngine.AI;
 public class PlayerScript : MonoBehaviour {
     NavMeshAgent playerNav;
     public Vector3 mousePosition;
-    public bool distinationFlag = true;
 
     void Start() {
         playerNav = GetComponent<NavMeshAgent>();
