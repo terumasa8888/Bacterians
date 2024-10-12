@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 
 /// <summary>
@@ -9,7 +8,7 @@ using UnityEngine.AI;
 /// </summary>
 public class EnemySpawnerScript : MonoBehaviour {
     [SerializeField] private GameObject enemy; // 敵のプレハブ
-    [SerializeField] private float spawnRadius = 2f; // 生成位置のランダム範囲
+    private float spawnRadius = 2f; // 生成位置のランダム範囲
 
     void Start() {
         Create();
@@ -18,8 +17,8 @@ public class EnemySpawnerScript : MonoBehaviour {
     void Create() {
         for (int i = 0; i < 100; i++) {
             Vector3 randomPosition = GetRandomPosition();
-            var o1 = Instantiate(enemy, randomPosition, Quaternion.identity) as GameObject;
-            o1.name = enemy.name + "(" + (i + 1) + ")";
+            GameObject clone = Instantiate(enemy, randomPosition, Quaternion.identity);
+            clone.name = enemy.name + "(" + (i + 1) + ")";
         }
     }
 
