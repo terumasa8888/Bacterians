@@ -76,4 +76,10 @@ public class Status : MonoBehaviour, IDamageable
         if (DuplicatableNumber.Value <= 0) return;
         DuplicatableNumber.Value--;
     }
+
+    // 新しいメソッドを追加してDuplicatableNumberを設定
+    public void SetDuplicatableNumber(int number)
+    {
+        DuplicatableNumber.Value = number;
+    }
 }
