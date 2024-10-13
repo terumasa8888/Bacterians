@@ -12,14 +12,14 @@ public class ItemSpawnerScript : MonoBehaviour
     [SerializeField] private GameObject item;
     [SerializeField] private float x_Max, x_Min, y_Max, y_Min;
     [SerializeField] private float instantiateTime;
-    private const int attackMultiplier = 3; // UŒ‚—Í‚Ì”{—¦‚ğİ’è
+    private const int attackMultiplier = 3; // UŒ‚—Í‚Ì”{—¦
 
     void Start()
     {
         StartCoroutine(InstantiateItemAfterDelay(instantiateTime));
-        MessageBroker.Default.Receive<ItemDestroyedMessage>() // ‚±‚±‚ªUniRx‚ÌMessageBroker‹@”\
-            .Subscribe(message => MultiplyAttack(message.AttackerTag)) // ‚±‚±‚ªUniRx‚ÌSubscribe‹@”\
-            .AddTo(this); // ƒƒ‚ƒŠƒŠ[ƒN‚ğ–h‚®‚½‚ß‚ÌAddTo
+        MessageBroker.Default.Receive<ItemDestroyedMessage>()
+            .Subscribe(message => MultiplyAttack(message.AttackerTag))
+            .AddTo(this);
     }
 
     IEnumerator InstantiateItemAfterDelay(float delay)
@@ -35,6 +35,5 @@ public class ItemSpawnerScript : MonoBehaviour
         {
             target.GetComponent<Status>().MultiplyAttack(attackMultiplier);
         }
-        Debug.Log($"{attackerTag}‚ÌUŒ‚—Í‚ğ{attackMultiplier}”{‚É‚µ‚½‚æ");
     }
 }
