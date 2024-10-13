@@ -4,101 +4,106 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UniRx;
+using UniRx.Triggers;
 
 
 /// <summary>
 /// Player(Standの下にいるやつ)の動作を制御するスクリプト
-/// ネストが深すぎる
-/// public変数のせいでガバガバ
-/// 変数名もよくない
-/// スピード保存するのにPlayerPrefs使っているが、もっと良い方法はないのか
 /// </summary>
-public class PlayersMover : MonoBehaviour {
-    private Vector3 mousePosition1;
-    private Vector3 objPos1;
-    GameObject obj;
+public class PlayersMover : MonoBehaviour
+{
     private GameObject buttonManager;
-    ButtonManagerScript buttonManagerScript;
+    private ButtonManagerScript buttonManagerScript;
+    private List<NavMeshAgent2D> agents = new List<NavMeshAgent2D>();
+    private bool isSelected = false;
 
-    int count = 0;
-    List<GameObject> list = new List<GameObject>();
+    [SerializeField] private GameObject circle;
+    [SerializeField] private float SELECTION_RADIUS = 2f;
 
-    public GameObject circle;
-    public float angle = 1;
-    public bool rot = true;
-
-    void Start() {
+    private void Start()
+    {
         buttonManager = GameObject.Find("ButtonManager");
         buttonManagerScript = buttonManager.GetComponent<ButtonManagerScript>();
 
-        buttonManagerScript.SelectedButtonType
-            .Where(buttonType => buttonType == ButtonType.None)
-            .Subscribe(_ => EnableAreaSelection())
+        // マウスクリックイベントを監視
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            .Where(_ => buttonManagerScript.SelectedButtonType.Value == ButtonType.None)
+            .Subscribe(_ => HandleMouseClick())
             .AddTo(this);
     }
 
-    void LateUpdate() {
-        if (rot) {
-            circle.transform.rotation *= Quaternion.AngleAxis(angle, Vector3.back);
+    /// <summary>
+    /// マウスクリックイベントを処理する
+    /// </summary>
+    private void HandleMouseClick()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = Camera.main.nearClipPlane;
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        worldPosition.z = 0;
+
+        if (isSelected)
+        {
+            MoveAgents(worldPosition);
+        }
+        else
+        {
+            SelectAgents(mousePosition, worldPosition);
         }
     }
 
-    void Update() {
-        ChooseArea();
+    /// <summary>
+    /// Agentを指定した位置に移動させる
+    /// </summary>
+    /// <param name="destination"></param>
+    private void MoveAgents(Vector3 destination)
+    {
+        foreach (NavMeshAgent2D agent in agents)
+        {
+            if (agent == null) return;
+
+            agent.Resume();
+            agent.SetDestination(destination);
+        }
+
+        agents.Clear();
+        isSelected = false;
+        circle.SetActive(false);
     }
 
-    void ChooseArea() {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
-        if (!Input.GetMouseButtonDown(0)) return;
+    /// <summary>
+    /// Agentを選択する
+    /// </summary>
+    /// <param name="mousePosition"></param>
+    /// <param name="worldPosition"></param>
+    private void SelectAgents(Vector3 mousePosition, Vector3 worldPosition)
+    {
+        isSelected = true;
 
-        mousePosition1 = Input.mousePosition;
-        mousePosition1.z = 0f;
-        objPos1 = Camera.main.ScreenToWorldPoint(mousePosition1);
+        Vector3 point = Vector3.zero;
+        RectTransform rc = circle.GetComponent<RectTransform>();
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(rc, mousePosition, null, out point);
 
-        if (count >= 1) {
-            // 動かす
-            foreach (GameObject obj in list) {
-                if (obj != null) {
-                    PlayerScript script = obj.GetComponent<PlayerScript>();
-                    script.mousePosition = objPos1;
-                    obj.GetComponent<NavMeshAgent>().speed = PlayerPrefs.GetFloat(obj.name);
-                }
-            }
+        circle.GetComponent<RectTransform>().position = point;
+        circle.SetActive(true);
 
-            list.Clear();
-            count = 0;
-            circle.SetActive(false);
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            float distance = Vector3.Distance(player.transform.position, worldPosition);
+            if (distance > SELECTION_RADIUS) continue;
+
+            NavMeshAgent2D agent = player.GetComponent<NavMeshAgent2D>();
+            if (agent == null) continue;
+
+            agents.Add(agent);
+            agent.Stop();
         }
-        else {
-            // 止める
-            count = 1;
 
-            Vector3 point = Vector3.zero;
-            RectTransform rc = circle.GetComponent<RectTransform>();
-            RectTransformUtility.ScreenPointToWorldPointInRectangle(rc, mousePosition1, null, out point);
+        if (agents.Count != 0) return;
 
-            circle.GetComponent<RectTransform>().position = point;
-            circle.SetActive(true);
-
-            GameObject[] objects = GameObject.FindGameObjectsWithTag("NavMesh");
-
-            foreach (GameObject obj in objects) {
-                if (Vector3.Distance(obj.transform.position, objPos1) <= 2) {
-                    float speed = obj.GetComponent<NavMeshAgent>().speed;
-                    PlayerPrefs.SetFloat(obj.name, speed);
-                    list.Add(obj);
-                    obj.GetComponent<NavMeshAgent>().speed = 0;
-                }
-            }
-
-            if (list.Count == 0) {
-                count = 0;
-                circle.SetActive(false);
-            }
-        }
-    }
-
-    void EnableAreaSelection() {
-        // 選択エリアを有効にする処理
+        isSelected = false;
+        circle.SetActive(false);
     }
 }
