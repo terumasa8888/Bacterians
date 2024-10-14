@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b479f3cfc0cbca64dbee0812ac811c45, type: 3}
   m_Name: MijinkoData
   m_EditorClassIdentifier: 
-  type: 3
+  buttonType: 4
   hp: 500
   attack: 20
   speed: 4
   multiplySpeed: 20
+  healPower: 0
+  duplicatableNumber: 0
+  duplicateInterval: 0
   characterSprite: {fileID: 21300000, guid: b2a6d2da4cc4a974f9240c09d71c9f5a, type: 3}
-  createTimes: 0
