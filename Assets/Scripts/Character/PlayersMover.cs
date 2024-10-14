@@ -8,7 +8,7 @@ using UniRx.Triggers;
 
 
 /// <summary>
-/// Player(Standの下にいるやつ)の動作を制御するスクリプト
+/// Playerの動作を制御するスクリプト
 /// </summary>
 public class PlayersMover : MonoBehaviour
 {
@@ -16,6 +16,8 @@ public class PlayersMover : MonoBehaviour
     private ButtonManagerScript buttonManagerScript;
     private List<NavMeshAgent2D> agents = new List<NavMeshAgent2D>();
     private bool isSelected = false;
+    private bool isMoving = false;
+    private Vector3 destination;
 
     [SerializeField] private GameObject circle;
     [SerializeField] private float SELECTION_RADIUS = 2f;
@@ -25,12 +27,28 @@ public class PlayersMover : MonoBehaviour
         buttonManager = GameObject.Find("ButtonManager");
         buttonManagerScript = buttonManager.GetComponent<ButtonManagerScript>();
 
-        // マウスクリックイベントを監視
+        // マウス左クリックイベントを監視
         this.UpdateAsObservable()
             .Where(_ => Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             .Where(_ => buttonManagerScript.SelectedButtonType.Value == ButtonType.None)
             .Subscribe(_ => HandleMouseClick())
             .AddTo(this);
+
+        // マウス右クリックイベントを監視
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetMouseButtonDown(1))
+            .Subscribe(_ => buttonManagerScript.ResetOther())
+            .AddTo(this);
+    }
+
+    private void Update()
+    {
+        if (isMoving)
+        {
+            MoveAgents(destination);
+            CheckAgentsArrival();
+        }
+        Debug.Log(buttonManagerScript.SelectedButtonType.Value);
     }
 
     /// <summary>
@@ -45,7 +63,11 @@ public class PlayersMover : MonoBehaviour
 
         if (isSelected)
         {
-            MoveAgents(worldPosition);
+            Debug.Log("Setting new destination: " + worldPosition);
+            destination = worldPosition;
+            isMoving = true;
+            // 目的地を設定した後にサークルを非表示にする
+            circle.SetActive(false);
         }
         else
         {
@@ -61,15 +83,37 @@ public class PlayersMover : MonoBehaviour
     {
         foreach (NavMeshAgent2D agent in agents)
         {
-            if (agent == null) return;
+            if (agent == null) continue;
 
             agent.Resume();
-            agent.SetDestination(destination);
+            //Debug.Log("Moving agent to: " + destination);
+            agent.SetDestination(new Vector2(destination.x, destination.y));
+        }
+    }
+
+    /// <summary>
+    /// エージェントが目的地に到着したかどうかを確認する
+    /// </summary>
+    private void CheckAgentsArrival()
+    {
+        bool allArrived = true;
+        foreach (NavMeshAgent2D agent in agents)
+        {
+            if (agent == null) continue;
+            if (Vector2.Distance(agent.transform.position, agent.destination) > 2f)
+            {
+                allArrived = false;
+                break;
+            }
         }
 
-        agents.Clear();
-        isSelected = false;
-        circle.SetActive(false);
+        if (allArrived)
+        {
+            Debug.Log("All agents have arrived at the destination");
+            isMoving = false;
+            isSelected = false;
+            agents.Clear();
+        }
     }
 
     /// <summary>
@@ -79,7 +123,7 @@ public class PlayersMover : MonoBehaviour
     /// <param name="worldPosition"></param>
     private void SelectAgents(Vector3 mousePosition, Vector3 worldPosition)
     {
-        isSelected = true;
+        Debug.Log("Selecting agents around: " + worldPosition);
 
         Vector3 point = Vector3.zero;
         RectTransform rc = circle.GetComponent<RectTransform>();
@@ -101,9 +145,15 @@ public class PlayersMover : MonoBehaviour
             agent.Stop();
         }
 
-        if (agents.Count != 0) return;
-
-        isSelected = false;
-        circle.SetActive(false);
+        if (agents.Count > 0)
+        {
+            isSelected = true;
+        }
+        else
+        {
+            Debug.Log("No agents selected");
+            isSelected = false;
+            circle.SetActive(false);
+        }
     }
 }

@@ -6,7 +6,7 @@ using UniRx;
 
 /// <summary>
 /// プレイヤーのキャラクターを生成するスクリプト
-/// マウスインプットはクラスを分離したい
+/// マウスインプットはクラス分離を検討
 /// <summary>
 public class PlayerSpawnerScript : MonoBehaviour {
 
@@ -76,20 +76,21 @@ public class PlayerSpawnerScript : MonoBehaviour {
     /// プレイヤーのキャラクターを生成する
     /// </summary>
     /// <param name="buttonType">生成するキャラクターの種類</param>
-    void CreatePlayer(ButtonType buttonType) {
+    void CreatePlayer(ButtonType buttonType)
+    {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (!Input.GetMouseButtonDown(0)) return;
+        if (buttonManagerScript.SelectedButtonType.Value == ButtonType.None) return; // 追加
 
         Vector3 mousePosition = Input.mousePosition;
         Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePosition);
         objPos.z = 0f;
 
-        if (objPos.x <= X_Min || objPos.x >= X_Max || objPos.y <= Y_Min || objPos.y >= Y_Max) return;
-        if ((objPos.x >= exclusiveX_Min && objPos.x <= exclusiveX_Max) && (objPos.y >= exclusiveY_Min && objPos.y <= exclusiveY_Max)) return;
         if (creatableTimes[buttonType] <= 0) return;
 
         GameObject characterPrefab = characterPrefabs[buttonType];
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++)
+        {
             GameObject character = Instantiate(characterPrefab);
             character.transform.position = objPos;
             character.transform.rotation = Quaternion.identity;
