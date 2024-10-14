@@ -37,7 +37,6 @@ public class Attackable : MonoBehaviour
     void OnCollisionStay2D(Collision2D collision)
     {
         GameObject collidedObject = collision.gameObject;
-        if (!collidedObject.CompareTag(targetTag)) return;
 
         targetInRange = true;
         currentTarget = collidedObject;
@@ -46,7 +45,6 @@ public class Attackable : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         GameObject collidedObject = collision.gameObject;
-        if (!collidedObject.CompareTag(targetTag)) return;
 
         targetInRange = false;
         currentTarget = null;

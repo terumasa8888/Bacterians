@@ -12,14 +12,13 @@ GameObject:
   - component: {fileID: 4450114008546599411}
   - component: {fileID: 488143332972797132}
   - component: {fileID: 6627772398037603860}
-  - component: {fileID: 6522488227567687708}
   - component: {fileID: 3511718763359013545}
   - component: {fileID: -4384537201752632607}
   - component: {fileID: 9164585133543527518}
   - component: {fileID: 2869193000488533572}
   - component: {fileID: 1486788495497676396}
   m_Layer: 8
-  m_Name: Saru
+  m_Name: Mijinko
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,27 +163,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!95 &6522488227567687708
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3876688721610805439}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 727643e5fcbaa0445b82f5f77c258451, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3511718763359013545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f543144061ea047b260436b2add6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: 224a5b842900ff240a5088dc06dd8a16, type: 2}
+  characterData: {fileID: 11400000, guid: 24d1a11ce76f523418450b4c6f27c13e, type: 2}
   deadEffect: {fileID: 19800006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
   healEffect: {fileID: 0}
 --- !u!114 &-4384537201752632607

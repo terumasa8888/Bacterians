@@ -6,26 +6,21 @@ using UniRx;
 
 /// <summary>
 /// プレイヤーのキャラクターを生成するスクリプト
-/// マウスインプットはクラスを分離したい
+/// マウスインプットはクラス分離を検討
 /// <summary>
 public class PlayerSpawnerScript : MonoBehaviour {
 
-    //なんでintとfloat
-    //なんでpublic
-    public int X_Max, X_Min, Y_Max, Y_Min;
-    public float exclusiveX_Max, exclusiveX_Min, exclusiveY_Max, exclusiveY_Min;//クリック範囲制限
+    [SerializeField] private float X_Max, X_Min, Y_Max, Y_Min;
+    [SerializeField] private float exclusiveX_Max, exclusiveX_Min, exclusiveY_Max, exclusiveY_Min;//クリック範囲制限
 
-    private Vector3 mousePosition;
-    private Vector3 objPos;
-
-    // 各キャラクターの生成可能回数をインスペクターから設定
+    // 各キャラクターの生成可能回数
     [SerializeField] private int saruCreatableTimes = 3;
     [SerializeField] private int houseDustCreatableTimes = 3;
     [SerializeField] private int clioneCreatableTimes = 3;
     [SerializeField] private int mijinkoCreatableTimes = 3;
     [SerializeField] private int piroriCreatableTimes = 3;
 
-    // 各キャラクター、スタンドのプレハブ
+    // 各キャラクターのプレハブ
     [SerializeField] private GameObject saru;
     [SerializeField] private GameObject houseDust;
     [SerializeField] private GameObject clione;
@@ -66,12 +61,6 @@ public class PlayerSpawnerScript : MonoBehaviour {
 
         uiManager.InitializeButtonTexts(creatableTimes);
 
-        // ButtonManagerScriptのSelectedButtonTypeを監視
-        /*buttonManagerScript.SelectedButtonType
-            .Where(buttonType => buttonType != ButtonType.None)
-            .Subscribe(buttonType => CreatePlayer(buttonType))
-            .AddTo(this);*/
-        //ここ理解できてない
         buttonManagerScript.SelectedButtonType
             .Where(buttonType => buttonType != ButtonType.None)
             .Subscribe(buttonType => {
@@ -83,20 +72,25 @@ public class PlayerSpawnerScript : MonoBehaviour {
             .AddTo(this);
     }
 
-    void CreatePlayer(ButtonType buttonType) {
+    /// <summary>
+    /// プレイヤーのキャラクターを生成する
+    /// </summary>
+    /// <param name="buttonType">生成するキャラクターの種類</param>
+    void CreatePlayer(ButtonType buttonType)
+    {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (!Input.GetMouseButtonDown(0)) return;
+        if (buttonManagerScript.SelectedButtonType.Value == ButtonType.None) return; // 追加
 
-        mousePosition = Input.mousePosition; // その座標を取得
-        objPos = Camera.main.ScreenToWorldPoint(mousePosition); // ワールド座標に変換
+        Vector3 mousePosition = Input.mousePosition;
+        Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePosition);
         objPos.z = 0f;
 
-        if (objPos.x <= X_Min || objPos.x >= X_Max || objPos.y <= Y_Min || objPos.y >= Y_Max) return;
-        if ((objPos.x >= exclusiveX_Min && objPos.x <= exclusiveX_Max) && (objPos.y >= exclusiveY_Min && objPos.y <= exclusiveY_Max)) return;
         if (creatableTimes[buttonType] <= 0) return;
 
         GameObject characterPrefab = characterPrefabs[buttonType];
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++)
+        {
             GameObject character = Instantiate(characterPrefab);
             character.transform.position = objPos;
             character.transform.rotation = Quaternion.identity;
@@ -108,17 +102,28 @@ public class PlayerSpawnerScript : MonoBehaviour {
         DecreaseCreatableTimes(buttonType);
     }
 
+    /// <summary>
+    /// キャラクターの生成位置を散らす
+    /// EnemySpawnerScriptにも近い処理がある
+    /// </summary>
     private void ScatterPosition(GameObject character) {
         float x = Random.Range(-0.5f, 0.5f);
         float y = Random.Range(-0.5f, 0.5f);
         character.transform.Translate(x, y, 0);
     }
 
+    /// <summary>
+    /// 生成可能回数を減らす
+    /// <summary>
     private void DecreaseCreatableTimes(ButtonType buttonType) {
         creatableTimes[buttonType]--;
         uiManager.UpdateButtonText(buttonType, creatableTimes[buttonType]); // UIを更新
     }
 
+    /// <summary>
+    /// 全キャラクターの生成可能回数の合計を取得
+    /// 勝利判定に必要
+    /// </summary>
     public int GetTotalCreatableTimes() {
         int total = 0;
         foreach (var times in creatableTimes.Values) {

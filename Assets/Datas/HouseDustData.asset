@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b479f3cfc0cbca64dbee0812ac811c45, type: 3}
   m_Name: HouseDustData
   m_EditorClassIdentifier: 
-  type: 1
+  buttonType: 2
   hp: 200
   attack: 40
   speed: 1
   multiplySpeed: 20
+  healPower: 0
+  duplicatableNumber: 0
+  duplicateInterval: 0
   characterSprite: {fileID: 21300000, guid: 1e5b6a13191b632479ab2117f66c4ba9, type: 3}
-  createTimes: 0

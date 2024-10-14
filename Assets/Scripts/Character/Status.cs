@@ -27,7 +27,9 @@ public class Status : MonoBehaviour, IDamageable
         healPower = characterData.HealPower;
         DuplicatableNumber = new ReactiveProperty<int>(characterData.DuplicatableNumber);
         duplicateInterval = characterData.DuplicateInterval;
+        
         characterSprite = characterData.CharacterSprite;
+        GetComponent<SpriteRenderer>().sprite = characterSprite;
     }
 
     public int Attack
@@ -75,5 +77,11 @@ public class Status : MonoBehaviour, IDamageable
     {
         if (DuplicatableNumber.Value <= 0) return;
         DuplicatableNumber.Value--;
+    }
+
+    // 新しいメソッドを追加してDuplicatableNumberを設定
+    public void SetDuplicatableNumber(int number)
+    {
+        DuplicatableNumber.Value = number;
     }
 }

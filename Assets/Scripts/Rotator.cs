@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// オブジェクトをランダムに回転させるスクリプト
+/// サークルにも応用できるかも
+/// UniRxを使ってもっと効率的に
+/// </summary>
 public class Rotator : MonoBehaviour {
 
     private float rotationInterval; // 回転の間隔
