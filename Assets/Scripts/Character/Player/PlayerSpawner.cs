@@ -8,7 +8,7 @@ using UniRx;
 /// プレイヤーのキャラクターを生成するスクリプト
 /// マウスインプットはクラス分離を検討
 /// <summary>
-public class PlayerSpawnerScript : MonoBehaviour {
+public class PlayerSpawner : MonoBehaviour {
 
     [SerializeField] private float X_Max, X_Min, Y_Max, Y_Min;
     [SerializeField] private float exclusiveX_Max, exclusiveX_Min, exclusiveY_Max, exclusiveY_Min;//クリック範囲制限
@@ -39,7 +39,6 @@ public class PlayerSpawnerScript : MonoBehaviour {
         buttonManagerScript = buttonManager.GetComponent<ButtonManagerScript>();
         uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
 
-        // TypeをKeyにして、生成するキャラクターのプレハブをValueに設定
         characterPrefabs = new Dictionary<ButtonType, GameObject>
         {
             { ButtonType.Saru, saru },
@@ -49,7 +48,6 @@ public class PlayerSpawnerScript : MonoBehaviour {
             { ButtonType.Pirori, pirori }
         };
 
-        // 生成可能回数の初期化
         creatableTimes = new Dictionary<ButtonType, int>
         {
             { ButtonType.Saru, saruCreatableTimes },
@@ -80,7 +78,7 @@ public class PlayerSpawnerScript : MonoBehaviour {
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (!Input.GetMouseButtonDown(0)) return;
-        if (buttonManagerScript.SelectedButtonType.Value == ButtonType.None) return; // 追加
+        if (buttonManagerScript.SelectedButtonType.Value == ButtonType.None) return;
 
         Vector3 mousePosition = Input.mousePosition;
         Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -95,9 +93,6 @@ public class PlayerSpawnerScript : MonoBehaviour {
             character.transform.position = objPos;
             character.transform.rotation = Quaternion.identity;
             ScatterPosition(character);
-
-            NavMeshAgent2D nav = character.GetComponent<NavMeshAgent2D>();
-            nav.destination = objPos;
         }
         DecreaseCreatableTimes(buttonType);
     }
@@ -117,7 +112,7 @@ public class PlayerSpawnerScript : MonoBehaviour {
     /// <summary>
     private void DecreaseCreatableTimes(ButtonType buttonType) {
         creatableTimes[buttonType]--;
-        uiManager.UpdateButtonText(buttonType, creatableTimes[buttonType]); // UIを更新
+        uiManager.UpdateButtonText(buttonType, creatableTimes[buttonType]);
     }
 
     /// <summary>

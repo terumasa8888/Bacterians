@@ -7,7 +7,7 @@ using UniRx;
 /// アイテムを生成するスクリプト
 /// アイテムを壊したキャラクターの攻撃力を増加させる処理も行っている
 /// </summary>
-public class ItemSpawnerScript : MonoBehaviour
+public class ItemSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject item;
     [SerializeField] private float x_Max, x_Min, y_Max, y_Min;

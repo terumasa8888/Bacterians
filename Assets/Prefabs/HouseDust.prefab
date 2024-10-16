@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 488143332972797132}
   - component: {fileID: 6627772398037603860}
   - component: {fileID: 3511718763359013545}
-  - component: {fileID: -4384537201752632607}
   - component: {fileID: 9164585133543527518}
   - component: {fileID: 2869193000488533572}
   - component: {fileID: 1486788495497676396}
+  - component: {fileID: -618882446265520555}
   m_Layer: 8
   m_Name: HouseDust
   m_TagString: Player
@@ -178,20 +178,6 @@ MonoBehaviour:
   characterData: {fileID: 11400000, guid: 50ad834f48a08b343bba0bb8c935e97a, type: 2}
   deadEffect: {fileID: 19800006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
   healEffect: {fileID: 0}
---- !u!114 &-4384537201752632607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3876688721610805439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7427bcff192f72841b0356c65d1e037a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  stoppingDistance: 0
 --- !u!114 &9164585133543527518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,5 +213,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e6d73320591fa144839eedfd289eee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-618882446265520555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876688721610805439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5b8c84d60f5dd4e9d739653d9ae574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

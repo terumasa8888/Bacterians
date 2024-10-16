@@ -100,7 +100,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 3010768814652169289}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 9de0113152bf24b46b5d35aa6abb29af, type: 2}
+  m_Material: {fileID: 6200000, guid: 4b3669d1af423c549a48a2b1f54d48f0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -149,10 +149,10 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4b3669d1af423c549a48a2b1f54d48f0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: aa808ea4b9ad4e64bb4b06542a8d09bb, type: 2}
   deadEffect: {fileID: 19800004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
+  healEffect: {fileID: 0}
 --- !u!114 &3139529774260478468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112fd8f47cf53e042bad45a60239f9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTag: Player
+  targetTag: Enemy
 --- !u!114 &8232752729020616617
 MonoBehaviour:
   m_ObjectHideFlags: 0
