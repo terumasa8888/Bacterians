@@ -2,6 +2,16 @@
 using UnityEngine;
 using UniRx;
 
+public enum PlayerState
+{
+    Idle,
+    Selected,
+    Moving
+}
+
+/// <summary>
+/// キャラクターのステータスを管理するクラス
+/// </summary>
 public class Status : MonoBehaviour, IDamageable
 {
     [SerializeField] private CharacterData characterData;
@@ -18,6 +28,8 @@ public class Status : MonoBehaviour, IDamageable
 
     private Sprite characterSprite;
 
+    public PlayerState CurrentState { get; private set; }
+
     void Awake()
     {
         Hp = new ReactiveProperty<int>(characterData.Hp);
@@ -27,14 +39,21 @@ public class Status : MonoBehaviour, IDamageable
         healPower = characterData.HealPower;
         DuplicatableNumber = new ReactiveProperty<int>(characterData.DuplicatableNumber);
         duplicateInterval = characterData.DuplicateInterval;
-        
+
         characterSprite = characterData.CharacterSprite;
         GetComponent<SpriteRenderer>().sprite = characterSprite;
+
+        CurrentState = PlayerState.Idle;
     }
 
     public int Attack
     {
         get { return attack; }
+    }
+
+    public float Speed
+    {
+        get { return speed; }
     }
 
     public int HealPower
@@ -79,9 +98,13 @@ public class Status : MonoBehaviour, IDamageable
         DuplicatableNumber.Value--;
     }
 
-    // 新しいメソッドを追加してDuplicatableNumberを設定
     public void SetDuplicatableNumber(int number)
     {
         DuplicatableNumber.Value = number;
+    }
+
+    public void SetState(PlayerState newState)
+    {
+        CurrentState = newState;
     }
 }

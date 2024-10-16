@@ -10,16 +10,14 @@ public class Attackable : MonoBehaviour
 
     private float attackInterval = 2f;
     private float timer;
-    private bool targetInRange;
+    private bool isNearby;
     private GameObject currentTarget;
-
-    [SerializeField][Tag] private string targetTag;//なくしてもいいかも
     private int attackPower;
 
     void Start()
     {
         timer = attackInterval;
-        targetInRange = false;
+        isNearby = false;
         attackPower = GetComponent<Status>().Attack;
     }
 
@@ -27,34 +25,44 @@ public class Attackable : MonoBehaviour
     {
         timer -= Time.deltaTime;
 
-        if (!targetInRange || timer > 0f) return;
+        if (!isNearby || timer > 0f) return;
         if (currentTarget == null) return;
 
         Attack(currentTarget);
         timer = attackInterval;
     }
 
+    /// <summary>
+    /// 接触している間、攻撃対象を設定する
+    /// </summary>
     void OnCollisionStay2D(Collision2D collision)
     {
         GameObject collidedObject = collision.gameObject;
 
-        targetInRange = true;
+        isNearby = true;
         currentTarget = collidedObject;
     }
 
+    /// <summary>
+    /// 接触が終わったら攻撃対象を解除する
+    /// </summary>
     void OnCollisionExit2D(Collision2D collision)
     {
         GameObject collidedObject = collision.gameObject;
 
-        targetInRange = false;
+        isNearby = false;
         currentTarget = null;
     }
 
+    /// <summary>
+    /// 攻撃を行う
+    /// </summary>
     void Attack(GameObject target)
     {
         var damageable = target.GetComponent<IDamageable>();
         if (damageable != null)
         {
+            if (target.tag == gameObject.tag) return;
             damageable.TakeDamage(attackPower, gameObject.tag);
         }
     }

@@ -15,7 +15,6 @@ public class Duplicatable : MonoBehaviour
     {
         status = GetComponent<Status>();
 
-        // Observable.Intervalを使用して増殖のタイミングを制御
         Observable.Interval(System.TimeSpan.FromSeconds(status.DuplicateInterval))
             .Where(_ => status.DuplicatableNumber.Value > 0)
             .Subscribe(_ => Duplicate())
@@ -25,11 +24,8 @@ public class Duplicatable : MonoBehaviour
     private void Duplicate()
     {
         GameObject clone = Instantiate(this.gameObject);
-        //clone.name = this.gameObject.name + "(Clone)";
-
-        // クローンのStatusコンポーネントを取得し、DuplicatableNumberを設定
         Status cloneStatus = clone.GetComponent<Status>();
-        cloneStatus.SetDuplicatableNumber(status.DuplicatableNumber.Value - 1);
+        cloneStatus.SetDuplicatableNumber(status.DuplicatableNumber.Value - 1);//ここReduceDuplicatableNumberに変更可能？
 
         status.ReduceDuplicatableNumber();
     }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 
 /// <summary>
-/// コピペなので理解していない
 /// カメラの視野角をマウスホイールのスクロール入力に基づいて調整するためのスクリプト
 /// </summary>
 public class FieldOfViewScript : MonoBehaviour
@@ -13,11 +12,6 @@ public class FieldOfViewScript : MonoBehaviour
     float ZoomMinBound = 0.1f;
     float ZoomMaxBound = 179.9f;
     private Camera cam;
-
-    void Start()
-    {
-        
-    }
     
     void Update()
     {

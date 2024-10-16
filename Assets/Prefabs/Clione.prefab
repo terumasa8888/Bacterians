@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 488143332972797132}
   - component: {fileID: 6627772398037603860}
   - component: {fileID: 3511718763359013545}
-  - component: {fileID: -4384537201752632607}
   - component: {fileID: 9164585133543527518}
   - component: {fileID: 2869193000488533572}
   - component: {fileID: 1486788495497676396}
+  - component: {fileID: -1149226640937241601}
   m_Layer: 8
   m_Name: Clione
   m_TagString: Player
@@ -100,7 +100,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 3876688721610805439}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 9de0113152bf24b46b5d35aa6abb29af, type: 2}
+  m_Material: {fileID: 6200000, guid: 4b3669d1af423c549a48a2b1f54d48f0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -149,10 +149,10 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4b3669d1af423c549a48a2b1f54d48f0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -178,20 +178,6 @@ MonoBehaviour:
   characterData: {fileID: 11400000, guid: de2fc91281ff4614fb82d13270317289, type: 2}
   deadEffect: {fileID: 19800006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
   healEffect: {fileID: 0}
---- !u!114 &-4384537201752632607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3876688721610805439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7427bcff192f72841b0356c65d1e037a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  stoppingDistance: 0
 --- !u!114 &9164585133543527518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,5 +213,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e6d73320591fa144839eedfd289eee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1149226640937241601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876688721610805439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5b8c84d60f5dd4e9d739653d9ae574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
