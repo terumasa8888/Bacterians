@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UniRx;
 
@@ -29,6 +30,10 @@ public class Status : MonoBehaviour, IDamageable
     private Sprite characterSprite;
 
     public PlayerState CurrentState { get; private set; }
+
+    // キャラクターが死んだことを通知するイベント
+    public IObservable<Unit> OnDie => onDie;
+    private Subject<Unit> onDie = new Subject<Unit>();
 
     void Awake()
     {
@@ -83,6 +88,8 @@ public class Status : MonoBehaviour, IDamageable
     protected virtual void Die()
     {
         Instantiate(deadEffect, transform.position, Quaternion.identity);
+        onDie.OnNext(Unit.Default); // 死亡イベントを発行
+        onDie.OnCompleted(); // イベントの完了を通知
         Destroy(gameObject);
     }
 

@@ -7,18 +7,19 @@ using UnityEngine;
 /// </summary>
 public class Attackable : MonoBehaviour
 {
-
     private float attackInterval = 2f;
     private float timer;
     private bool isNearby;
     private GameObject currentTarget;
     private int attackPower;
+    private string cachedTag;
 
     void Start()
     {
         timer = attackInterval;
         isNearby = false;
         attackPower = GetComponent<Status>().Attack;
+        cachedTag = gameObject.tag; // タグをキャッシュ
     }
 
     void Update()
@@ -62,8 +63,8 @@ public class Attackable : MonoBehaviour
         var damageable = target.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            if (target.tag == gameObject.tag) return;
-            damageable.TakeDamage(attackPower, gameObject.tag);
+            if (cachedTag == target.tag) return;
+            damageable.TakeDamage(attackPower, cachedTag);
         }
     }
 }
