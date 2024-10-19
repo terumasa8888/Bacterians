@@ -18,7 +18,7 @@ public class ResultManager : MonoBehaviour
 
     void Start()
     {
-        GameObject playerSpawnerObject = GameObject.Find("PlayerSpawnerObject");
+        GameObject playerSpawnerObject = GameObject.Find("PlayerSpawner");
         playerSpawnerScript = playerSpawnerObject.GetComponent<PlayerSpawner>();
         audioSource = bgm.GetComponent<AudioSource>();
 

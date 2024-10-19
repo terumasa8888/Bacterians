@@ -15,10 +15,12 @@ public class EnemyBulletScript : MonoBehaviour
     [SerializeField] private GameObject hitEffectPrefab;
     private Rigidbody2D rid2d;
     private ObjectPool<GameObject> pool;
+    private string playerTag;
 
     public void Initialize(float velocity, float radian)
     {
         rid2d = GetComponent<Rigidbody2D>();
+        playerTag = "Player"; // プレイヤーのタグをキャッシュ
 
         Vector2 bulletV = new Vector2(
             velocity * Mathf.Cos(radian),
@@ -28,7 +30,6 @@ public class EnemyBulletScript : MonoBehaviour
 
         // 回転処理
         rid2d.angularVelocity = 360f;
-
     }
 
     public void SetPool(ObjectPool<GameObject> pool)
@@ -38,7 +39,7 @@ public class EnemyBulletScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.tag == playerTag)
         {
             Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
