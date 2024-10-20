@@ -16,7 +16,7 @@ public class PlayerCommand : MonoBehaviour
     private Dictionary<GameObject, IDisposable> characterSubscriptions = new Dictionary<GameObject, IDisposable>();
     private Vector3 destination;
 
-    [SerializeField] private CharacterSelectionIndicator selectionIndicator;
+    //[SerializeField] private CharacterSelectionIndicator selectionIndicator;
     [SerializeField] private float selectionRadius = 2f;
 
     private void Start()
@@ -38,13 +38,13 @@ public class PlayerCommand : MonoBehaviour
             .AddTo(this);
 
         // selectedCharactersの変更を監視し、リストが空になったときにIndicatorを非表示にする
-        selectedCharacters.ObserveCountChanged()
+        /*selectedCharacters.ObserveCountChanged()
             .Where(count => count == 0)
             .Subscribe(_ =>
             {
                 selectionIndicator.Hide();
             })
-            .AddTo(this);
+            .AddTo(this);*/
     }
 
     /// <summary>
@@ -76,6 +76,13 @@ public class PlayerCommand : MonoBehaviour
             {
                 mover.SetDestination(destination);
             }
+
+            // 選択解除時にスプライトを非表示にする
+            var indicator = character.GetComponent<SelectionIndicator>();
+            if (indicator != null)
+            {
+                indicator.Hide();
+            }
         }
 
         selectedCharacters.Clear();
@@ -86,7 +93,7 @@ public class PlayerCommand : MonoBehaviour
     /// </summary>
     private void SelectCharactersInRadius(Vector3 mousePosition, Vector3 worldPosition)
     {
-        selectionIndicator.Show(mousePosition);
+        //selectionIndicator.Show(mousePosition);
 
         GameObject[] characters = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject character in characters)
@@ -98,6 +105,13 @@ public class PlayerCommand : MonoBehaviour
             if (status == null) continue;
 
             selectedCharacters.Add(character);
+
+            // 選択されたキャラクターのスプライトを表示
+            var indicator = character.GetComponent<SelectionIndicator>();
+            if (indicator != null)
+            {
+                indicator.Show();
+            }
 
             // 選択範囲内のキャラクター数の変化を把握するために死亡イベントを購読
             if (!characterSubscriptions.ContainsKey(character))
