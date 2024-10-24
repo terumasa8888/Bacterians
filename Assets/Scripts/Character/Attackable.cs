@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 /// <summary>
 /// 攻撃を行う機能を提供するクラス
@@ -14,12 +15,16 @@ public class Attackable : MonoBehaviour
     private int attackPower;
     private string cachedTag;
 
+    private SoundPlayer soundPlayer;
+    [SerializeField] private GameObject attackSoundPrefab;
+
     void Start()
     {
         timer = attackInterval;
         isNearby = false;
         attackPower = GetComponent<Status>().Attack;
-        cachedTag = gameObject.tag; // タグをキャッシュ
+        cachedTag = gameObject.tag;
+        soundPlayer = GetComponent<SoundPlayer>();
     }
 
     void Update()
@@ -65,6 +70,7 @@ public class Attackable : MonoBehaviour
         {
             if (cachedTag == target.tag) return;
             damageable.TakeDamage(attackPower, cachedTag);
+            soundPlayer.PlaySound(attackSoundPrefab);
         }
     }
 }

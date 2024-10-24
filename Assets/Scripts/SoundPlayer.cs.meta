@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 112fd8f47cf53e042bad45a60239f9ca
+guid: 689e181ba5be1e54684394d430254ea4
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - attackSoundPrefab: {fileID: 5080276291938561430, guid: 92886d45400e8e34e94c9194b3d7e90f, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
