@@ -32,7 +32,6 @@ public class EnemySpawner : MonoBehaviour
 
     /// <summary>
     /// キャラクターの生成位置を散らす
-    /// PlayerSpawnerScriptにも近い処理がある
     /// </summary>
     private void ScatterPosition(GameObject character)
     {

@@ -10,19 +10,17 @@ using UniRx.Triggers;
 /// </summary>
 public class PlayerCommand : MonoBehaviour
 {
-    private GameObject buttonManager;
+    [SerializeField] private GameObject uiManager;
     private ButtonManagerScript buttonManagerScript;
     private ReactiveCollection<GameObject> selectedCharacters = new ReactiveCollection<GameObject>();
     private Dictionary<GameObject, IDisposable> characterSubscriptions = new Dictionary<GameObject, IDisposable>();
     private Vector3 destination;
 
-    //[SerializeField] private CharacterSelectionIndicator selectionIndicator;
     [SerializeField] private float selectionRadius = 2f;
 
     private void Start()
     {
-        buttonManager = GameObject.Find("ButtonManager");
-        buttonManagerScript = buttonManager.GetComponent<ButtonManagerScript>();
+        buttonManagerScript = uiManager.GetComponent<ButtonManagerScript>();
 
         // 左クリックでキャラクター選択または移動先の設定
         this.UpdateAsObservable()
@@ -36,15 +34,6 @@ public class PlayerCommand : MonoBehaviour
             .Where(_ => Input.GetMouseButtonDown(1))
             .Subscribe(_ => buttonManagerScript.ResetOther())
             .AddTo(this);
-
-        // selectedCharactersの変更を監視し、リストが空になったときにIndicatorを非表示にする
-        /*selectedCharacters.ObserveCountChanged()
-            .Where(count => count == 0)
-            .Subscribe(_ =>
-            {
-                selectionIndicator.Hide();
-            })
-            .AddTo(this);*/
     }
 
     /// <summary>

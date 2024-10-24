@@ -25,16 +25,26 @@ public class NWayShooter : MonoBehaviour
 
     void Start()
     {
+        // ’e‚Ìƒv[ƒ‹‚ğì¬
         bulletPool = new ObjectPool<GameObject>(
             createFunc: () => Instantiate(enemyBulletPrefab),
             actionOnGet: bullet => bullet.SetActive(true),
-            actionOnRelease: bullet => bullet?.SetActive(false),
-            actionOnDestroy: bullet => { if (bullet != null) Destroy(bullet); },
+            actionOnRelease: bullet =>
+            {
+                if (bullet == null) return;
+                bullet.SetActive(false);
+            },
+            actionOnDestroy: bullet =>
+            {
+                if (bullet == null) return;
+                Destroy(bullet);
+            },
             collectionCheck: false,
             defaultCapacity: 10,
-            maxSize: 50
+            maxSize: 100
         );
 
+        // ˆê’èŠÔŠu‚Å’e‚ğ”­Ë
         Observable.Interval(TimeSpan.FromSeconds(fireInterval))
             .Subscribe(_ =>
             {
@@ -46,6 +56,9 @@ public class NWayShooter : MonoBehaviour
             .AddTo(this);
     }
 
+    /// <summary>
+    /// ˆê”Ô‹ß‚¢ƒvƒŒƒCƒ„[‚ğ’T‚·
+    /// </summary>
     private void FindNearestPlayer()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
@@ -54,14 +67,15 @@ public class NWayShooter : MonoBehaviour
         foreach (GameObject target in targets)
         {
             float distance = Vector3.Distance(target.transform.position, transform.position);
-            if (distance < nearestDistance)
-            {
-                nearestDistance = distance;
-                targetObject = target;
-            }
+            if (distance >= nearestDistance) continue;
+            nearestDistance = distance;
+            targetObject = target;
         }
     }
 
+    /// <summary>
+    /// ƒ^[ƒQƒbƒg‚Ì•ûŒü‚ÉŒü‚­
+    /// </summary>
     private void RotateTowardsTarget()
     {
         Vector3 direction = (targetObject.transform.position - transform.position).normalized;
@@ -71,6 +85,9 @@ public class NWayShooter : MonoBehaviour
         targetAngle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad + baseAngle;
     }
 
+    /// <summary>
+    /// n-way’e‚ğ”­Ë‚·‚é
+    /// </summary>
     private void FireNWayBullets()
     {
         for (int i = 0; i < n; i++)

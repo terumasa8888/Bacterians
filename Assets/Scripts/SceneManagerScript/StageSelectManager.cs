@@ -10,72 +10,80 @@ using UnityEngine.UI;
 /// </summary>
 public class StageSelectManager : MonoBehaviour
 {
-    bool isCalledOnce = false;
-    //bool isCalledOnceAfterAllClear = false;
+    [SerializeField] private GameObject bgm;
+    private AudioSource audioSource;
 
-    public GameObject bgm;
-    AudioSource audioSource;
+    [SerializeField] private GameObject stage2Button;
+    [SerializeField] private GameObject stage3Button;
 
-    public GameObject stage2Button;
-    public GameObject stage3Button;
+    [SerializeField] private GameObject panel2;
+    [SerializeField] private GameObject panel3;
 
-    public GameObject panel2;
-    public GameObject panel3;
+    [SerializeField] private GameObject imageLine2;
+    [SerializeField] private GameObject imageLine3;
 
-    public GameObject imageLine2;
-    public GameObject imageLine3;
+    private Image stage2ButtonImage;
+    private Image stage3ButtonImage;
 
-    Image stage2ButtonImage;
-    Image stage3ButtonImage;
+    [SerializeField] private GameObject AllClearUI;
 
-    public GameObject AllClearUI;
-
+    //[SerializeField] private Fade fade;
+    [SerializeField] private StageClearData stageClearData;
 
     void Start()
     {
         audioSource = bgm.GetComponent<AudioSource>();
 
-        //PlayerPrefs.SetInt("AllClear", 0);//実験用
         stage2ButtonImage = stage2Button.GetComponent<Image>();
         stage3ButtonImage = stage3Button.GetComponent<Image>();
 
         stage2ButtonImage.color = TurnOffAlpha(stage2ButtonImage.color);
         stage3ButtonImage.color = TurnOffAlpha(stage3ButtonImage.color);
+
+        InitializeStageButtons();
     }
 
-    void Update()
+    /// <summary>
+    /// 各ステージのボタンの初期化
+    /// </summary>
+    void InitializeStageButtons()
     {
-        if (!isCalledOnce) {
-            isCalledOnce = true;
-            if (PlayerPrefs.GetInt("Stage1Scene", 0) == 1) {//Stage1クリアしてるなら
-                //panel2.SetActive(false);
-                stage2Button.SetActive(true);//なんかうまくいかんので追加
-                imageLine2.SetActive(true);
-                stage2ButtonImage.color = TurnOnAlpha(stage2ButtonImage.color);
-            }
+        if (stageClearData.Stage1Cleared)
+        { // Stage1クリアしてるなら
+            stage2Button.SetActive(true);
+            imageLine2.SetActive(true);
+            stage2ButtonImage.color = TurnOnAlpha(stage2ButtonImage.color);
+        }
 
-            if (PlayerPrefs.GetInt("Stage2Scene", 0) == 1) {//Stage2クリアしてるなら
-                //panel3.SetActive(false);
-                stage3Button.SetActive(true);//なんかうまくいかんので追加
-                imageLine3.SetActive(true);
-                stage3ButtonImage.color = TurnOnAlpha(stage3ButtonImage.color);
-            }
+        if (stageClearData.Stage2Cleared)
+        { // Stage2クリアしてるなら
+            stage3Button.SetActive(true);
+            imageLine3.SetActive(true);
+            stage3ButtonImage.color = TurnOnAlpha(stage3ButtonImage.color);
+        }
 
-            if ((PlayerPrefs.GetInt("Stage3Scene", 0) == 1) && (PlayerPrefs.GetInt("AllClear") == 0)) {//Stage3クリアしていてかつ初めてのクリアなら
-                AllClearUI.SetActive(true);
-                PlayerPrefs.SetInt("AllClear", 1);
-                audioSource.volume = 0.3f;
-
-            }
+        if (stageClearData.Stage3Cleared && !stageClearData.AllCleared)
+        { // Stage3クリアしていてかつ初めてのクリアなら
+            AllClearUI.SetActive(true);
+            stageClearData.AllCleared = true;
+            audioSource.volume = 0.3f;
         }
     }
 
-    Color TurnOffAlpha(Color color) {
+    /// <summary>
+    /// ボタンを透明にする
+    /// </summary>
+    Color TurnOffAlpha(Color color)
+    {
         color.a = 1.0f / 3.0f;
         return color;
     }
 
-    Color TurnOnAlpha(Color color) {
+    /// <summary>
+    /// ボタンを不透明にする
+    /// </summary>
+    Color TurnOnAlpha(Color color)
+    {
         color.a = 1;
         return color;
     }

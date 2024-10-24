@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UniRx;
+using System;
 
 /// <summary>
 /// プレイヤーのキャラクターを生成するスクリプト
@@ -10,8 +11,8 @@ using UniRx;
 /// <summary>
 public class PlayerSpawner : MonoBehaviour {
 
-    [SerializeField] private float X_Max, X_Min, Y_Max, Y_Min;
-    [SerializeField] private float exclusiveX_Max, exclusiveX_Min, exclusiveY_Max, exclusiveY_Min;//クリック範囲制限
+    //[SerializeField] private float X_Max, X_Min, Y_Max, Y_Min;
+    //[SerializeField] private float exclusiveX_Max, exclusiveX_Min, exclusiveY_Max, exclusiveY_Min;//クリック範囲制限
 
     // 各キャラクターの生成可能回数
     [SerializeField] private int saruCreatableTimes = 3;
@@ -27,17 +28,18 @@ public class PlayerSpawner : MonoBehaviour {
     [SerializeField] private GameObject mijinko;
     [SerializeField] private GameObject pirori;
 
-    private GameObject buttonManager;
+    [SerializeField] private GameObject uiManager;
     private ButtonManagerScript buttonManagerScript;
-    private UIManager uiManager;
+    private UIManager uiManagerScript;
 
     private Dictionary<ButtonType, GameObject> characterPrefabs;
     private Dictionary<ButtonType, int> creatableTimes;
 
+    private CompositeDisposable disposables = new CompositeDisposable();
+
     void Start() {
-        buttonManager = GameObject.Find("ButtonManager");
-        buttonManagerScript = buttonManager.GetComponent<ButtonManagerScript>();
-        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        buttonManagerScript = uiManager.GetComponent<ButtonManagerScript>();
+        uiManagerScript = uiManager.GetComponent<UIManager>();
 
         characterPrefabs = new Dictionary<ButtonType, GameObject>
         {
@@ -57,15 +59,16 @@ public class PlayerSpawner : MonoBehaviour {
             { ButtonType.Pirori, piroriCreatableTimes }
         };
 
-        uiManager.InitializeButtonTexts(creatableTimes);
+        uiManagerScript.InitializeButtonTexts(creatableTimes);
 
         buttonManagerScript.SelectedButtonType
             .Where(buttonType => buttonType != ButtonType.None)
             .Subscribe(buttonType => {
+                disposables.Clear();
                 Observable.EveryUpdate()
                     .Where(_ => Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
                     .Subscribe(_ => CreatePlayer(buttonType))
-                    .AddTo(this);
+                    .AddTo(disposables);
             })
             .AddTo(this);
     }
@@ -99,11 +102,11 @@ public class PlayerSpawner : MonoBehaviour {
 
     /// <summary>
     /// キャラクターの生成位置を散らす
-    /// EnemySpawnerScriptにも近い処理がある
     /// </summary>
-    private void ScatterPosition(GameObject character) {
-        float x = Random.Range(-0.5f, 0.5f);
-        float y = Random.Range(-0.5f, 0.5f);
+    private void ScatterPosition(GameObject character)
+    {
+        float x = UnityEngine.Random.Range(-0.5f, 0.5f);
+        float y = UnityEngine.Random.Range(-0.5f, 0.5f);
         character.transform.Translate(x, y, 0);
     }
 
@@ -112,7 +115,7 @@ public class PlayerSpawner : MonoBehaviour {
     /// <summary>
     private void DecreaseCreatableTimes(ButtonType buttonType) {
         creatableTimes[buttonType]--;
-        uiManager.UpdateButtonText(buttonType, creatableTimes[buttonType]);
+        uiManagerScript.UpdateButtonText(buttonType, creatableTimes[buttonType]);
     }
 
     /// <summary>

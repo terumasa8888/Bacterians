@@ -20,7 +20,7 @@ public class EnemyBulletScript : MonoBehaviour
     public void Initialize(float velocity, float radian)
     {
         rid2d = GetComponent<Rigidbody2D>();
-        playerTag = "Player"; // プレイヤーのタグをキャッシュ
+        playerTag = "Player";
 
         Vector2 bulletV = new Vector2(
             velocity * Mathf.Cos(radian),

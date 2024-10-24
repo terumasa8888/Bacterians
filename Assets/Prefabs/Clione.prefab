@@ -13,11 +13,12 @@ GameObject:
   - component: {fileID: 488143332972797132}
   - component: {fileID: 6627772398037603860}
   - component: {fileID: 3511718763359013545}
-  - component: {fileID: 9164585133543527518}
   - component: {fileID: 2869193000488533572}
   - component: {fileID: 1486788495497676396}
   - component: {fileID: -1149226640937241601}
   - component: {fileID: -2124332575247458492}
+  - component: {fileID: 674145577409728415}
+  - component: {fileID: -3008356591151011183}
   m_Layer: 8
   m_Name: Clione
   m_TagString: Player
@@ -179,19 +180,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: de2fc91281ff4614fb82d13270317289, type: 2}
   deadEffect: {fileID: 19800006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
-  healEffect: {fileID: 0}
---- !u!114 &9164585133543527518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3876688721610805439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 112fd8f47cf53e042bad45a60239f9ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2869193000488533572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +229,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicatorSprite: {fileID: 7319448323088184497}
+--- !u!114 &674145577409728415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876688721610805439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c61fb52d6236a4498397d28233c42db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healDistance: 2
+  healInterval: 10
+  targetTag: Player
+  healEffect: {fileID: 19800004, guid: 3af6f68141914ca43ba39b2403757bd0, type: 3}
+  healSoundPrefab: {fileID: 5080276291938561430, guid: 9cb160e9bf56b23448978b9a72292219, type: 3}
+--- !u!114 &-3008356591151011183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876688721610805439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689e181ba5be1e54684394d430254ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSimultaneousSounds: 5
 --- !u!1 &7319448323088184497
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,8 +329,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1705994383
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 0959edc3aab01e541937eb40f6a3fcd7, type: 3}
   m_Color: {r: 0.9622642, g: 0.039615978, b: 0.013616921, a: 0.4627451}

@@ -9,7 +9,6 @@ public class SelectionIndicator : MonoBehaviour
 
     void Start()
     {
-        // 初期状態ではスプライトを非表示にする
         indicatorSprite.SetActive(false);
     }
 
