@@ -13,11 +13,12 @@ GameObject:
   - component: {fileID: 488143332972797132}
   - component: {fileID: 6627772398037603860}
   - component: {fileID: 3511718763359013545}
-  - component: {fileID: 9164585133543527518}
   - component: {fileID: 2869193000488533572}
   - component: {fileID: 1486788495497676396}
   - component: {fileID: 9220564652143169122}
   - component: {fileID: -5584932124881230170}
+  - component: {fileID: 7729410929478456117}
+  - component: {fileID: -1874236391446406862}
   m_Layer: 8
   m_Name: Pirori
   m_TagString: Player
@@ -179,19 +180,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: 6d17af7e27910d0488b2b37d081542da, type: 2}
   deadEffect: {fileID: 19800006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
-  healEffect: {fileID: 0}
---- !u!114 &9164585133543527518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3876688721610805439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 112fd8f47cf53e042bad45a60239f9ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2869193000488533572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +229,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicatorSprite: {fileID: 4769182534741414132}
+--- !u!114 &7729410929478456117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876688721610805439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6eb2400651a084c87d3d91497a101a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionEffect: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+  explosionRadius: 1
+  damageableLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  explosionSoundPrefab: {fileID: 5080276291938561430, guid: a4371f20a60601e43a55b48d3a9daf0c, type: 3}
+--- !u!114 &-1874236391446406862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876688721610805439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689e181ba5be1e54684394d430254ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSimultaneousSounds: 5
 --- !u!1 &4769182534741414132
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,8 +330,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1705994383
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 0959edc3aab01e541937eb40f6a3fcd7, type: 3}
   m_Color: {r: 0.9622642, g: 0.039615978, b: 0.013616921, a: 0.4627451}

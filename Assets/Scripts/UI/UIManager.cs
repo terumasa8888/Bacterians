@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// 各キャラクターの生成可能回数を表示するUIのテキストを更新するスクリプト
-/// 正確にいえばTextというよりCount
 /// </summary>
 public class UIManager : MonoBehaviour {
 
@@ -27,14 +25,18 @@ public class UIManager : MonoBehaviour {
             { ButtonType.Pirori, piroriButtonText }
         };
 
-        foreach (var type in buttonTexts.Keys) {
+        foreach (var type in buttonTexts.Keys)
+        {
+            if (buttonTexts[type] == null) continue;
+
             buttonTexts[type].text = createTimes[type].ToString();
         }
     }
 
-    public void UpdateButtonText(ButtonType type, int createTimes) {
-        if (buttonTexts.ContainsKey(type)) {
-            buttonTexts[type].text = createTimes.ToString();
-        }
+    public void UpdateButtonText(ButtonType type, int createTimes)
+    {
+        if (!buttonTexts.ContainsKey(type) || buttonTexts[type] == null) return;
+
+        buttonTexts[type].text = createTimes.ToString();
     }
 }

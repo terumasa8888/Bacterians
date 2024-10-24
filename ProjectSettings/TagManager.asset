@@ -27,7 +27,7 @@ TagManager:
   - Enemy
   - Wall
   - EnemyBullet
-  - 
+  - Indicator
   - 
   - 
   - 
@@ -53,4 +53,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Indicator
+    uniqueID: 1705994383
     locked: 0

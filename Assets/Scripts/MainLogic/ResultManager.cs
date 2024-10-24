@@ -10,6 +10,7 @@ public class ResultManager : MonoBehaviour
 {
     [SerializeField] private GameObject clearUI, loseUI;
     [SerializeField] private GameObject bgm;
+    [SerializeField] GameObject playerSpawner;
     AudioSource audioSource;
     private PlayerSpawner playerSpawnerScript;
 
@@ -18,8 +19,7 @@ public class ResultManager : MonoBehaviour
 
     void Start()
     {
-        GameObject playerSpawnerObject = GameObject.Find("PlayerSpawner");
-        playerSpawnerScript = playerSpawnerObject.GetComponent<PlayerSpawner>();
+        playerSpawnerScript = playerSpawner.GetComponent<PlayerSpawner>();
         audioSource = bgm.GetComponent<AudioSource>();
 
         Observable.Interval(System.TimeSpan.FromSeconds(3))
@@ -42,7 +42,7 @@ public class ResultManager : MonoBehaviour
             int totalCreateTimes = playerSpawnerScript.GetTotalCreatableTimes();
             if (totalCreateTimes == 0)
             {
-                loseUI.SetActive(true);
+                loseUI.SetActive(true);//UIÇÃèàóùÇÕÇŸÇ©Ç…è˜ÇÈÇ◊Ç´
                 audioSource.volume = 0.3f;
                 Time.timeScale = 0f;
                 return;

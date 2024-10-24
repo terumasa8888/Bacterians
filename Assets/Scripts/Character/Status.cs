@@ -17,7 +17,6 @@ public class Status : MonoBehaviour, IDamageable
 {
     [SerializeField] private CharacterData characterData;
     [SerializeField] private ParticleSystem deadEffect;
-    [SerializeField] private ParticleSystem healEffect;
 
     public ReactiveProperty<int> Hp { get; private set; }
     public ReactiveProperty<int> DuplicatableNumber { get; private set; }
@@ -35,6 +34,7 @@ public class Status : MonoBehaviour, IDamageable
     public IObservable<Unit> OnDie => onDie;
     private Subject<Unit> onDie = new Subject<Unit>();
 
+    //ステータスの初期化
     void Awake()
     {
         Hp = new ReactiveProperty<int>(characterData.Hp);
@@ -93,23 +93,34 @@ public class Status : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// 回復処理
+    /// </summary>
     public void Heal(int amount)
     {
         Hp.Value += amount;
-        Instantiate(healEffect, transform.position, Quaternion.identity);
     }
 
+    /// <summary>
+    /// 増殖可能回数を減らす
+    /// </summary>
     public void ReduceDuplicatableNumber()
     {
         if (DuplicatableNumber.Value <= 0) return;
         DuplicatableNumber.Value--;
     }
 
+    /// <summary>
+    /// 増殖可能回数を設定する
+    /// </summary>
     public void SetDuplicatableNumber(int number)
     {
         DuplicatableNumber.Value = number;
     }
 
+    /// <summary>
+    /// キャラクターの現在の状態を設定する
+    /// </summary>
     public void SetState(PlayerState newState)
     {
         CurrentState = newState;

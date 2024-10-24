@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ˆÚ“®æ‚ğİ’è‚·‚é
+    /// </summary>
     public void SetDestination(Vector3 destination)
     {
         this.destination = destination;
@@ -30,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ˆÚ“®ˆ—
+    /// </summary>
     private void Move()
     {
         Status status = GetComponent<Status>();
@@ -39,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb == null) return;
 
+        // ˆÚ“®æ‚É“’…‚µ‚½‚çˆÚ“®‚ğ’â~
         if (Vector2.Distance(transform.position, destination) <= 0.1f)
         {
             rb.velocity = Vector2.zero;
