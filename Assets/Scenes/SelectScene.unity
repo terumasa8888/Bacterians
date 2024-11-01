@@ -449,11 +449,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: cutoutRange
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11491604, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: startFade
@@ -1648,7 +1648,6 @@ MonoBehaviour:
   imageLine2: {fileID: 2083337591}
   imageLine3: {fileID: 214304150}
   AllClearUI: {fileID: 1565477220}
-  fade: {fileID: 403386088}
   stageClearData: {fileID: 11400000, guid: 05676d979db42d04fb61d0a4fa3242e6, type: 2}
 --- !u!4 &919924332
 Transform:
@@ -2883,6 +2882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fade: {fileID: 403386088}
+  stageClearData: {fileID: 11400000, guid: 05676d979db42d04fb61d0a4fa3242e6, type: 2}
 --- !u!4 &1925534793
 Transform:
   m_ObjectHideFlags: 0

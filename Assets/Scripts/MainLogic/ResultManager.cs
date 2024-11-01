@@ -22,6 +22,7 @@ public class ResultManager : MonoBehaviour
         playerSpawnerScript = playerSpawner.GetComponent<PlayerSpawner>();
         audioSource = bgm.GetComponent<AudioSource>();
 
+        // 3•b‚²‚Æ‚ÉŸ”s”»’è‚ğs‚¤
         Observable.Interval(System.TimeSpan.FromSeconds(3))
             .Subscribe(_ => CheckWinOrLose())
             .AddTo(this);
@@ -52,7 +53,7 @@ public class ResultManager : MonoBehaviour
         // “G‚ª‘S–Å‚µ‚½‚çŸ‚¿
         if (enemies.Length == 0 && boss == null)
         {
-            clearUI.SetActive(true);
+            clearUI.SetActive(true);//UI‚Ìˆ—‚Í‚Ù‚©‚É÷‚é‚×‚«
             audioSource.volume = 0.3f;
             Time.timeScale = 0f;
             return;
