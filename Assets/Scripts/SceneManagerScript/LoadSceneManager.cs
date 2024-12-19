@@ -6,11 +6,6 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// シーン遷移を管理するスクリプト
-/// Clearメソッドは各ステージのクリア時に呼び出すが、
-/// list.Clear()と被るので名前を変えるべき
-/// StageClearとか
-/// あと、PlayerPrefs.SetIntまでやっていいのか？
-/// 単一責任の原則に反している？
 /// </summary>
 public class LoadSceneManager : MonoBehaviour
 {
@@ -49,6 +44,12 @@ public class LoadSceneManager : MonoBehaviour
             Debug.Log("fade is null");
         }
         Time.timeScale = 1f;
+        /*if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            // WebGLでは直接シーンをロード
+            SceneManager.LoadScene("SelectScene");
+            return;
+        }*/
         fade.FadeIn(1f, () =>
         {
             Debug.Log("FadeIn callback called");
@@ -61,15 +62,6 @@ public class LoadSceneManager : MonoBehaviour
         fade.FadeIn(1f, () => {
             SceneManager.LoadScene("StartScene");
         });
-    }
-
-    public void Clear() {
-        //ここ単一責任の原則に反している
-        //ゲームの状態を保存するロジックを別のクラスに移動
-        //gameStateManager.SaveStageClearState(SceneManager.GetActiveScene().name);
-        //PlayerPrefs.SetInt(SceneManager.GetActiveScene().name, 1);//1は勝利の証
-
-        Select();
     }
 
     public void Stage1Clear()

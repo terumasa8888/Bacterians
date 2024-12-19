@@ -5,6 +5,7 @@ using UniRx;
 
 /// <summary>
 /// Player, Enemy‚Ì”‚ğŠÄ‹‚µAŸ”s‚ğ”»’è‚·‚é
+/// ‰¹‚ÌŠÇ—‚ğ‚µ‚Ä‚¢‚é‚Ì‚ÅŠO•”‚É”C‚¹‚é
 /// </summary>
 public class ResultManager : MonoBehaviour
 {

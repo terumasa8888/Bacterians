@@ -4,15 +4,14 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// たぶんコピペなのであんまり理解していない。要復習
 /// カメラとキャンバスのアスペクト比を管理するクラス。
-/// 指定されたアスペクト比に基づいて、カメラのビューポートとキャンバスのスケーリングを調整します。
+/// 指定されたアスペクト比に基づいて、カメラのビューポートとキャンバスのスケーリングを調整
 /// </summary>
 public class AspectRatioManager : MonoBehaviour {
 
-	public float x_aspect = 1242f;
-	public float y_aspect = 2208f;
-	public CanvasScaler[] canvasScaler = new CanvasScaler[1];
+    [SerializeField] private float x_aspect = 1920f;
+    [SerializeField] private float y_aspect = 1080f;
+    [SerializeField] private CanvasScaler[] canvasScaler = new CanvasScaler[1];
 
 	void Awake() {
 		//Cameraのアスペクト比を設定する
@@ -24,7 +23,10 @@ public class AspectRatioManager : MonoBehaviour {
 		for (int i = 0; i < canvasScaler.Length; i++) {
 			canvasScaler[i].matchWidthOrHeight = CheckScreenRatio(i);
 		}
-	}
+
+        // ウィンドウのアスペクト比を固定する
+        SetFixedAspectRatio();
+    }
 
 	private Rect calcAspect(float width, float height) {
 		float target_aspect = width / height;
@@ -49,10 +51,10 @@ public class AspectRatioManager : MonoBehaviour {
 	}
 
 
-	/// <summary>
-	/// Checks the screen ratio. Return 0 when width, 1 when height
-	/// </summary>
-	private int CheckScreenRatio(int i) {
+    /// <summary>
+    /// 画面の縦横比をチェックして、縦横比が大きい方を返す
+    /// </summary>
+    private int CheckScreenRatio(int i) {
 		if (Screen.width * canvasScaler[i].referenceResolution.y / canvasScaler[i].referenceResolution.x < Screen.height) {
 			return 0;
 		}
@@ -60,4 +62,21 @@ public class AspectRatioManager : MonoBehaviour {
 			return 1;
 		}
 	}
+
+    /// <summary>
+    /// ウィンドウのアスペクト比を固定する
+    /// </summary>
+    private void SetFixedAspectRatio()
+    {
+        float target_aspect = x_aspect / y_aspect;
+        int width = Screen.width;
+        int height = Mathf.RoundToInt(width / target_aspect);
+        Screen.SetResolution(width, height, false);
+    }
+
+    private void OnRectTransformDimensionsChange()
+    {
+        Debug.Log("OnRectTransformDimensionsChange called");
+        SetFixedAspectRatio();
+    }
 }

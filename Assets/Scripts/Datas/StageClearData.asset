@@ -15,3 +15,4 @@ MonoBehaviour:
   stage1Cleared: 0
   stage2Cleared: 0
   stage3Cleared: 0
+  allCleared: 0

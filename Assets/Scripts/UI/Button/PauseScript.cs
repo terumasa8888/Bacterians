@@ -8,24 +8,25 @@ using UnityEngine;
 /// </summary>
 public class PauseScript : MonoBehaviour {
 
-    [SerializeField]
+    /*[SerializeField]
     private GameObject pauseButton;
     [SerializeField]
-    private GameObject reStartButton;
+    private GameObject reStartButton;*/
     [SerializeField]
     private GameObject pausePanel;
 
     public void StopGame() {
         Time.timeScale = 0f;
-        pauseButton.SetActive(false);
-        reStartButton.SetActive(true);
+        //pauseButton.SetActive(false);
+        //reStartButton.SetActive(true);
         pausePanel.SetActive(true);
+        //pausePanel‚Ì•\¦‰ñ‚è‚¾‚¯ŠÇ—‚·‚é‚×‚«
     }
 
     public void ReStartGame() {
         pausePanel.SetActive(false);
-        reStartButton.SetActive(false);
-        pauseButton.SetActive(true);
+        //reStartButton.SetActive(false);
+        //pauseButton.SetActive(true);
         Time.timeScale = 1f;
     }
 }
