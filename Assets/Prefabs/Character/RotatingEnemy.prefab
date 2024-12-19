@@ -178,7 +178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: aa808ea4b9ad4e64bb4b06542a8d09bb, type: 2}
   deadEffect: {fileID: 19800004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
-  healEffect: {fileID: 0}
 --- !u!114 &3139529774260478468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112fd8f47cf53e042bad45a60239f9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSoundPrefab: {fileID: 5080276291938561430, guid: 92886d45400e8e34e94c9194b3d7e90f, type: 3}
 --- !u!114 &8232752729020616617
 MonoBehaviour:
   m_ObjectHideFlags: 0

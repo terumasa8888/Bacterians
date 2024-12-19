@@ -59,6 +59,8 @@ public class PlayerSpawner : MonoBehaviour {
             { ButtonType.Pirori, piroriCreatableTimes }
         };
 
+        Debug.Log("creatableTimes initialized.");
+
         uiManagerScript.InitializeButtonTexts(creatableTimes);
 
         buttonManagerScript.SelectedButtonType
@@ -86,6 +88,10 @@ public class PlayerSpawner : MonoBehaviour {
         Vector3 mousePosition = Input.mousePosition;
         Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePosition);
         objPos.z = 0f;
+
+        // クリックした位置にEnemyがいるかどうかをチェック
+        Collider2D hitCollider = Physics2D.OverlapPoint(objPos);
+        if (hitCollider != null && hitCollider.CompareTag("Enemy")) return;
 
         if (creatableTimes[buttonType] <= 0) return;
 
@@ -122,9 +128,11 @@ public class PlayerSpawner : MonoBehaviour {
     /// 全キャラクターの生成可能回数の合計を取得
     /// 勝利判定に必要
     /// </summary>
-    public int GetTotalCreatableTimes() {
+    public int GetTotalCreatableTimes()
+    {
         int total = 0;
-        foreach (var times in creatableTimes.Values) {
+        foreach (var times in creatableTimes.Values)
+        {
             total += times;
         }
         return total;

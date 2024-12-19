@@ -6,8 +6,7 @@ public class StageClearData : ScriptableObject
     [SerializeField] private bool stage1Cleared;
     [SerializeField] private bool stage2Cleared;
     [SerializeField] private bool stage3Cleared;
-
-    private bool allCleared;
+    [SerializeField] private bool allCleared;
 
     public bool Stage1Cleared
     {

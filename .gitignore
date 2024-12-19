@@ -75,3 +75,12 @@ crashlytics-build.properties
 !/[Aa]ssets/[Ss]ounds/
 !/[Aa]ssets/[Ff]ade/
 !/[Aa]ssets/[Jj][Mm][Oo] [Aa]ssets/
+
+# Ignore entire Packages folder except for manifest.json and packages-lock.json
+/Packages/*
+!/Packages/manifest.json
+!/Packages/packages-lock.json
+
+Assets/Plugins/
+
+/lib

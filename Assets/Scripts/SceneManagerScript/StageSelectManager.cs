@@ -10,8 +10,8 @@ using UnityEngine.UI;
 /// </summary>
 public class StageSelectManager : MonoBehaviour
 {
-    [SerializeField] private GameObject bgm;
-    private AudioSource audioSource;
+    [SerializeField] private GameObject bgmManager;
+    private BGM bgm;
 
     [SerializeField] private GameObject stage2Button;
     [SerializeField] private GameObject stage3Button;
@@ -30,16 +30,20 @@ public class StageSelectManager : MonoBehaviour
     //[SerializeField] private Fade fade;
     [SerializeField] private StageClearData stageClearData;
 
+    private const float DisabledTransparency = 1.0f / 3.0f;
+    private const float EnabledTransparency = 1.0f;
+
     void Start()
     {
-        audioSource = bgm.GetComponent<AudioSource>();
+        bgm = bgmManager.GetComponent<BGM>();
 
         stage2ButtonImage = stage2Button.GetComponent<Image>();
         stage3ButtonImage = stage3Button.GetComponent<Image>();
 
-        stage2ButtonImage.color = TurnOffAlpha(stage2ButtonImage.color);
-        stage3ButtonImage.color = TurnOffAlpha(stage3ButtonImage.color);
+        SetButtonTransparency(stage2ButtonImage, DisabledTransparency);
+        SetButtonTransparency(stage3ButtonImage, DisabledTransparency);
 
+        Debug.Log(stageClearData.AllCleared);
         InitializeStageButtons();
     }
 
@@ -50,41 +54,33 @@ public class StageSelectManager : MonoBehaviour
     {
         if (stageClearData.Stage1Cleared)
         { // Stage1クリアしてるなら
-            stage2Button.SetActive(true);
+            panel2.SetActive(false);
             imageLine2.SetActive(true);
-            stage2ButtonImage.color = TurnOnAlpha(stage2ButtonImage.color);
+            SetButtonTransparency(stage2ButtonImage, EnabledTransparency);
         }
 
         if (stageClearData.Stage2Cleared)
         { // Stage2クリアしてるなら
-            stage3Button.SetActive(true);
+            panel3.SetActive(false);
             imageLine3.SetActive(true);
-            stage3ButtonImage.color = TurnOnAlpha(stage3ButtonImage.color);
+            SetButtonTransparency(stage3ButtonImage, EnabledTransparency);
         }
 
         if (stageClearData.Stage3Cleared && !stageClearData.AllCleared)
         { // Stage3クリアしていてかつ初めてのクリアなら
             AllClearUI.SetActive(true);
             stageClearData.AllCleared = true;
-            audioSource.volume = 0.3f;
+            bgm.SetVolume(0.3f);
         }
     }
 
     /// <summary>
-    /// ボタンを透明にする
+    /// ボタンの透明度を設定する
     /// </summary>
-    Color TurnOffAlpha(Color color)
+    void SetButtonTransparency(Image buttonImage, float transparency)
     {
-        color.a = 1.0f / 3.0f;
-        return color;
-    }
-
-    /// <summary>
-    /// ボタンを不透明にする
-    /// </summary>
-    Color TurnOnAlpha(Color color)
-    {
-        color.a = 1;
-        return color;
+        Color color = buttonImage.color;
+        color.a = transparency;
+        buttonImage.color = color;
     }
 }

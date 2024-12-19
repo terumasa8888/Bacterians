@@ -39,6 +39,7 @@ public class ButtonManagerScript : MonoBehaviour {
 
     private void OnButtonClicked(CharacterButtonScript clickedButton)
     {
+        Debug.Log("OnButtonClicked called for button: " + clickedButton.ButtonType);
         // クリックされたボタンの状態を一時的に保存
         bool wasSelected = clickedButton.IsSelected();
         ResetOther();
