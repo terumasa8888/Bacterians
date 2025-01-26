@@ -517,8 +517,8 @@ MonoBehaviour:
   m_FillRect: {fileID: 1123990155}
   m_HandleRect: {fileID: 335454787}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: -30
+  m_MaxValue: 20
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -526,7 +526,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2042084934}
         m_TargetAssemblyTypeName: AudioSetting, Assembly-CSharp
-        m_MethodName: SetBGM
+        m_MethodName: SetBGMVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4512,8 +4512,8 @@ MonoBehaviour:
   m_FillRect: {fileID: 1249116162}
   m_HandleRect: {fileID: 416376974}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: -30
+  m_MaxValue: 20
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -4521,7 +4521,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2042084934}
         m_TargetAssemblyTypeName: AudioSetting, Assembly-CSharp
-        m_MethodName: SetSE
+        m_MethodName: SetSEVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5405,6 +5405,7 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 9d83dc5975b557d4d8f85707ee3564f3, type: 2}
   bgmSlider: {fileID: 201554279}
   seSlider: {fileID: 1596856861}
+  volumeData: {fileID: 11400000, guid: 0943392101b44b742a15030cc5a53cb5, type: 2}
 --- !u!1 &2083875671
 GameObject:
   m_ObjectHideFlags: 0
