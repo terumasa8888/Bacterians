@@ -98,6 +98,13 @@ public class EnemyGroupManager : MonoBehaviour
 
     Dictionary<int, List<Transform>> ClusterObjects(List<Transform> objects, int clusterCount)
     {
+        Dictionary<int, List<Transform>> clusters = new Dictionary<int, List<Transform>>();
+
+        if (objects.Count == 0)
+        {
+            return clusters;
+        }
+
         // 初期のセントロイドをランダムに選択
         List<Vector3> centroids = new List<Vector3>();
         for (int i = 0; i < clusterCount; i++)
@@ -106,7 +113,6 @@ public class EnemyGroupManager : MonoBehaviour
             centroids.Add(objects[Random.Range(0, objects.Count)].position);
         }
 
-        Dictionary<int, List<Transform>> clusters = new Dictionary<int, List<Transform>>();
         bool hasChanged;
 
         do
