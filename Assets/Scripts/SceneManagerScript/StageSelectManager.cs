@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class StageSelectManager : MonoBehaviour
 {
     [SerializeField] private GameObject bgmManager;
-    private BGM bgm;
+    private AudioSource audioSource;
 
     [SerializeField] private GameObject stage2Button;
     [SerializeField] private GameObject stage3Button;
@@ -35,7 +35,7 @@ public class StageSelectManager : MonoBehaviour
 
     void Start()
     {
-        bgm = bgmManager.GetComponent<BGM>();
+        audioSource = bgmManager.GetComponent<AudioSource>();
 
         stage2ButtonImage = stage2Button.GetComponent<Image>();
         stage3ButtonImage = stage3Button.GetComponent<Image>();
@@ -70,7 +70,7 @@ public class StageSelectManager : MonoBehaviour
         { // Stage3クリアしていてかつ初めてのクリアなら
             AllClearUI.SetActive(true);
             stageClearData.AllCleared = true;
-            bgm.SetVolume(0.3f);
+            audioSource.volume = 0.3f; // BGMの音量を直接設定
         }
     }
 

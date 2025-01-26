@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa73ef7ae8049b740aee5556f482b580, type: 3}
-  m_Name: StageClearData
+  m_Script: {fileID: 11500000, guid: 24d148ee5d5e4af4899c44b83b0b69b2, type: 3}
+  m_Name: AudioVolumeData
   m_EditorClassIdentifier: 
-  stage1Cleared: 1
-  stage2Cleared: 1
-  stage3Cleared: 1
-  allCleared: 1
+  bgmVolume: 0
+  seVolume: 0
