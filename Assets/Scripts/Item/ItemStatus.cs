@@ -5,7 +5,7 @@ public class ItemStatus : Status
 {
     private string lastAttackerTag;
 
-    // IDamageable インターフェースのメソッドをオーバーライド
+    // IStatus インターフェースのメソッドをオーバーライド
     public override void TakeDamage(int amount, string attackerTag)
     {
         lastAttackerTag = attackerTag;

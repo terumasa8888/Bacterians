@@ -45,7 +45,7 @@ public class Explodable : MonoBehaviour
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius, damageableLayer);
         foreach (var hitCollider in hitColliders)
         {
-            var damageable = hitCollider.GetComponent<IDamageable>();
+            var damageable = hitCollider.GetComponent<IStatus>();
             if (damageable != null && (hitCollider.CompareTag("Item") || hitCollider.CompareTag("Enemy")))
             {
                 damageable.TakeDamage(attackPower, cachedTag);

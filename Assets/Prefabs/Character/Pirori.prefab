@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: -5584932124881230170}
   - component: {fileID: 7729410929478456117}
   - component: {fileID: -1874236391446406862}
+  - component: {fileID: -8401114501096211538}
+  - component: {fileID: 4236704673861922167}
   m_Layer: 8
   m_Name: Pirori
   m_TagString: Player
@@ -236,7 +238,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3876688721610805439}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b6eb2400651a084c87d3d91497a101a, type: 3}
   m_Name: 
@@ -260,6 +262,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSimultaneousSounds: 5
+--- !u!114 &-8401114501096211538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876688721610805439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f6f2ce34cc7724782dd07d9357d7f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionEffect: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+--- !u!114 &4236704673861922167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876688721610805439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e7f222bbce5b4449a263a136fadeb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4769182534741414132
 GameObject:
   m_ObjectHideFlags: 0

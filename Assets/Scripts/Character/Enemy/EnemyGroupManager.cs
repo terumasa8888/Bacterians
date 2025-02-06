@@ -18,29 +18,26 @@ public class EnemyGroupManager : MonoBehaviour
 
     void Start()
     {
-        // タイマーを初期化
         timer = updateInterval;
-        // グループリストを初期化
         enemyGroups = new List<EnemyGroup>();
         playerGroups = new List<PlayerGroup>();
     }
 
     void Update()
     {
-        // タイマーを減少
         timer -= Time.deltaTime;
-        // タイマーが0以下になったらグループとフェーズを更新
         if (timer <= 0f)
         {
-            UpdateGroupsAndPhases();
-            // タイマーをリセット
+            UpdateGroupsAndStates();
             timer = updateInterval;
         }
     }
 
-    void UpdateGroupsAndPhases()
+    /// <summary>
+    /// グループと状態を更新
+    /// </summary>
+    void UpdateGroupsAndStates()
     {
-        // 動的にオブジェクトを取得
         playerTransforms = GameObject.FindGameObjectsWithTag("Player").Select(go => go.transform).ToList();
         enemyTransforms = GameObject.FindGameObjectsWithTag("Enemy").Select(go => go.transform).ToList();
         itemTransforms = GameObject.FindGameObjectsWithTag("Item").Select(go => go.transform).ToList();
@@ -49,7 +46,7 @@ public class EnemyGroupManager : MonoBehaviour
         playerGroups = ClusterGroups<PlayerGroup>(playerTransforms, enemyClusterCount);
         enemyGroups = ClusterGroups<EnemyGroup>(enemyTransforms, enemyClusterCount);
 
-        // 各エネミーグループの最短距離を計算
+        // 各エネミーグループの、プレイヤーグループに対する最短距離を計算
         var distances = new List<(EnemyGroup group, float distance)>();
         foreach (var enemyGroup in enemyGroups)
         {
@@ -65,7 +62,7 @@ public class EnemyGroupManager : MonoBehaviour
             distances.Add((enemyGroup, minDistance));
         }
 
-        // 距離でソート
+        // 距離を昇順でソート
         distances = distances.OrderBy(d => d.distance).ToList();
 
         // フェーズを割り当て
@@ -75,27 +72,34 @@ public class EnemyGroupManager : MonoBehaviour
             if (i == 0)
             {
                 // 最短距離のグループはAttackフェーズ
-                group.SetPhase(EnemyPhase.Attack, GetClosestPlayerGroup(group));
+                group.SetState(EnemyState.Attack, GetClosestPlayerGroup(group));
             }
             else if (i == 1)
             {
                 // 2番目に最短距離のグループはCollectItemフェーズ
-                group.SetPhase(EnemyPhase.CollectItem, GetClosestItem(group));
+                group.SetState(EnemyState.CollectItem, GetClosestItem(group));
             }
             else
             {
-                // 残りのグループはWaitフェーズ
-                group.SetPhase(EnemyPhase.Wait, null);
+                // 残りのグループはIdleフェーズ
+                group.SetState(EnemyState.Idle, null);
             }
         }
     }
 
+    /// <summary>
+    /// オブジェクトたちをクラスタリングしてグループを作成
+    /// </summary>
     List<TGroup> ClusterGroups<TGroup>(List<Transform> objects, int clusterCount) where TGroup : Group, new()
     {
         return ClusterObjects(objects, clusterCount)
             .Select(cluster => new TGroup { Members = cluster.Value }).ToList();
     }
 
+
+    /// <summary>
+    /// オブジェクトたちをクラスタリング
+    /// </summary>
     Dictionary<int, List<Transform>> ClusterObjects(List<Transform> objects, int clusterCount)
     {
         Dictionary<int, List<Transform>> clusters = new Dictionary<int, List<Transform>>();
@@ -173,6 +177,11 @@ public class EnemyGroupManager : MonoBehaviour
         return centroid / points.Count;
     }
 
+    /// <summary>
+    /// これ似たような処理がさっきあったから、それ使えないかな
+    /// </summary>
+    /// <param name="enemyGroup"></param>
+    /// <returns></returns>
     Transform GetClosestPlayerGroup(EnemyGroup enemyGroup)
     {
         // 最も近いプレイヤーグループを取得
@@ -192,9 +201,11 @@ public class EnemyGroupManager : MonoBehaviour
         return closestGroup;
     }
 
+    /// <summary>
+    /// 最も近いアイテムを取得
+    /// </summary>
     Transform GetClosestItem(EnemyGroup group)
     {
-        // 最も近いアイテムを取得
         Transform closestItem = null;
         float minDistance = float.MaxValue;
 

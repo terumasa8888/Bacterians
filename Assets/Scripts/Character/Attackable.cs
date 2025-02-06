@@ -65,7 +65,7 @@ public class Attackable : MonoBehaviour
     /// </summary>
     void Attack(GameObject target)
     {
-        var damageable = target.GetComponent<IDamageable>();
+        var damageable = target.GetComponent<Status>();
         if (damageable != null)
         {
             if (cachedTag == target.tag) return;
