@@ -9,7 +9,7 @@ using UnityEngine.AI;
 public class EnemyBehavior : MonoBehaviour
 {
     private NavMeshAgent2D nav;
-    private EnemyPhase currentPhase;
+    private EnemyState currentState;
     private Transform currentTarget;
     private SpriteRenderer spriteRenderer;
 
@@ -21,7 +21,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (currentPhase == EnemyPhase.Attack || currentPhase == EnemyPhase.CollectItem)
+        if (currentState == EnemyState.Attack || currentState == EnemyState.CollectItem)
         {
             Trace();
         }
@@ -30,27 +30,27 @@ public class EnemyBehavior : MonoBehaviour
     /// <summary>
     /// フェーズとターゲットを設定する
     /// </summary>
-    public void SetPhase(EnemyPhase phase, Transform target)
+    public void SetState(EnemyState state, Transform target)
     {
-        currentPhase = phase;
+        currentState = state;
         currentTarget = target;
-        PaintForDebug(phase);
+        PaintForDebug(state);
     }
 
     /// <summary>
     /// フェーズに応じて色を変更する
     /// </summary>
-    private void PaintForDebug(EnemyPhase phase)
+    private void PaintForDebug(EnemyState state)
     {
-        switch (phase)
+        switch (state)
         {
-            case EnemyPhase.Attack:
+            case EnemyState.Attack:
                 spriteRenderer.color = Color.red;
                 break;
-            case EnemyPhase.CollectItem:
+            case EnemyState.CollectItem:
                 spriteRenderer.color = Color.green;
                 break;
-            case EnemyPhase.Wait:
+            case EnemyState.Idle:
                 spriteRenderer.color = Color.blue;
                 break;
         }

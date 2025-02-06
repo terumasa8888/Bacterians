@@ -57,7 +57,7 @@ public class RotatingAttackable : MonoBehaviour
         if (!isMoving) return;
 
         GameObject collidedObject = collision.gameObject;
-        var damageable = collidedObject.GetComponent<IDamageable>();
+        var damageable = collidedObject.GetComponent<IStatus>();
 
         if (damageable == null || cachedTag == collidedObject.tag) return;
         damageable.TakeDamage(attackPower, cachedTag);

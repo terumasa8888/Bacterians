@@ -9,11 +9,11 @@ using UniRx.Triggers;
 /// </summary>
 public class Duplicatable : MonoBehaviour
 {
-    private Status status;
+    private IStatus status;
 
     void Start()
     {
-        status = GetComponent<Status>();
+        status = GetComponent<IStatus>();
 
         Observable.Interval(System.TimeSpan.FromSeconds(status.DuplicateInterval))
             .Where(_ => status.DuplicatableNumber.Value > 0)
@@ -24,8 +24,8 @@ public class Duplicatable : MonoBehaviour
     private void Duplicate()
     {
         GameObject clone = Instantiate(this.gameObject);
-        Status cloneStatus = clone.GetComponent<Status>();
-        cloneStatus.SetDuplicatableNumber(status.DuplicatableNumber.Value - 1);//‚±‚±ReduceDuplicatableNumber‚É•ÏX‰Â”\H
+        IStatus cloneStatus = clone.GetComponent<IStatus>();
+        cloneStatus.SetDuplicatableNumber(status.DuplicatableNumber.Value - 1);
 
         status.ReduceDuplicatableNumber();
     }

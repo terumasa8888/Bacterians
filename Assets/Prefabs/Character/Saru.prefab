@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: 578674997806572881}
   - component: {fileID: 3344435053047512378}
   - component: {fileID: -1565566862820067541}
+  - component: {fileID: 8295977885355397519}
+  - component: {fileID: 1924643539668431020}
   m_Layer: 8
   m_Name: Saru
   m_TagString: Player
@@ -187,7 +189,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3876688721610805439}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 112fd8f47cf53e042bad45a60239f9ca, type: 3}
   m_Name: 
@@ -255,6 +257,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSimultaneousSounds: 5
+--- !u!114 &8295977885355397519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876688721610805439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5510e07e3efb5fe459da64ddaa4ca808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1924643539668431020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876688721610805439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1173ef1ca348ea4cb7aa7e91b01dc62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9103255294935068020
 GameObject:
   m_ObjectHideFlags: 0

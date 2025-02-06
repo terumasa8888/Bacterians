@@ -1,25 +1,23 @@
 using UnityEngine;
 
-// フェーズの定義
-// フェーズに応じて増殖の管理するためにPlayerも使うかも
-public enum EnemyPhase
+public enum EnemyState
 {
     Attack,
     CollectItem,
-    Wait
+    Idle
 }
 
 public class EnemyGroup : Group
 {
-    public void SetPhase(EnemyPhase phase, Transform target)
+    public void SetState(EnemyState state, Transform target)
     {
-        Debug.Log($"Group is now in {phase} phase targeting {target?.name}");
+        Debug.Log($"Group is now in {state} state targeting {target?.name}");
         foreach (var enemy in Members)
         {
             var behavior = enemy.GetComponent<EnemyBehavior>();
             if (behavior != null)
             {
-                behavior.SetPhase(phase, target);
+                behavior.SetState(state, target);
             }
         }
     }

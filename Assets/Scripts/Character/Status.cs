@@ -12,8 +12,9 @@ public enum PlayerState
 
 /// <summary>
 /// キャラクターのステータスを管理するクラス
+/// MonoBehaviourをなくせる？
 /// </summary>
-public class Status : MonoBehaviour, IDamageable
+public class Status : MonoBehaviour, IStatus
 {
     [SerializeField] private CharacterData characterData;
     [SerializeField] private ParticleSystem deadEffect;
@@ -37,7 +38,7 @@ public class Status : MonoBehaviour, IDamageable
     //ステータスの初期化
     void Awake()
     {
-        Hp = new ReactiveProperty<int>(characterData.Hp);
+        Hp = new ReactiveProperty<int>(characterData.Hp);//ReactivePropertyを使う必要性？
         attack = characterData.Attack;
         speed = characterData.Speed;
         multiplySpeed = characterData.MultiplySpeed;
