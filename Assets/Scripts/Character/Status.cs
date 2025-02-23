@@ -19,7 +19,19 @@ public class Status : MonoBehaviour, IStatus
     [SerializeField] private CharacterData characterData;
     [SerializeField] private ParticleSystem deadEffect;
 
-    public ReactiveProperty<int> Hp { get; private set; }
+    private int hp;
+    public int Hp
+    {
+        get => hp;
+        private set
+        {
+            hp = value;
+            if (hp <= 0)
+            {
+                Die();
+            }
+        }
+    }
     public ReactiveProperty<int> DuplicatableNumber { get; private set; }
     private int attack;
     private float speed;
@@ -38,7 +50,7 @@ public class Status : MonoBehaviour, IStatus
     //ステータスの初期化
     void Awake()
     {
-        Hp = new ReactiveProperty<int>(characterData.Hp);//ReactivePropertyを使う必要性？
+        Hp = characterData.Hp;
         attack = characterData.Attack;
         speed = characterData.Speed;
         multiplySpeed = characterData.MultiplySpeed;
@@ -54,7 +66,8 @@ public class Status : MonoBehaviour, IStatus
 
     public int Attack
     {
-        get { return attack; }
+        get => attack;
+        private set => attack = value;
     }
 
     public float Speed
@@ -74,16 +87,12 @@ public class Status : MonoBehaviour, IStatus
 
     public void MultiplyAttack(int multiplier)
     {
-        attack *= multiplier;
+        Attack *= multiplier;
     }
 
     public virtual void TakeDamage(int amount, string attackerTag)
     {
-        Hp.Value -= amount;
-        if (Hp.Value <= 0)
-        {
-            Die();
-        }
+        Hp -= amount;
     }
 
     protected virtual void Die()
@@ -99,7 +108,7 @@ public class Status : MonoBehaviour, IStatus
     /// </summary>
     public void Heal(int amount)
     {
-        Hp.Value += amount;
+        Hp += amount;
     }
 
     /// <summary>

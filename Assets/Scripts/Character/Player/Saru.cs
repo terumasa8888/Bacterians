@@ -1,21 +1,9 @@
-using UnityEngine;
-
-public class Saru : MonoBehaviour
+public class Saru : CharacterBase
 {
-    public IStatus Status { get; private set; }
-    private AttackBehaviour attackBehaviour;
-
-    void Awake()
+    protected override void InitializeAttackBehaviour(Status status)
     {
-        Status = GetComponent<IStatus>();
-        attackBehaviour = GetComponent<NormalAttack>();//ここをExplodeに変えれば、振る舞いもかわる
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            attackBehaviour?.Attack(collision.gameObject);//NormalAttackに委譲
-        }
+        SetAttackBehaviour(new NormalAttack(status.Attack, gameObject));
+        // 例えば以下のように書き換えると攻撃パターンを爆発攻撃に変更することができる
+        // SetAttackBehaviour(new ExplosionAttack(status));
     }
 }

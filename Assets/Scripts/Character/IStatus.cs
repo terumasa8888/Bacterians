@@ -3,7 +3,7 @@ using UniRx;
 
 public interface IStatus
 {
-    ReactiveProperty<int> Hp { get; }
+    int Hp { get; }
     ReactiveProperty<int> DuplicatableNumber { get; }
     float DuplicateInterval { get; }
     PlayerState CurrentState { get; }

@@ -25,7 +25,7 @@ public class Duplicatable : MonoBehaviour
     {
         GameObject clone = Instantiate(this.gameObject);
         IStatus cloneStatus = clone.GetComponent<IStatus>();
-        cloneStatus.SetDuplicatableNumber(status.DuplicatableNumber.Value - 1);
+        cloneStatus.SetDuplicatableNumber(status.DuplicatableNumber.Value - 1);//‚±‚êŠO•”‚©‚çset‚µ‚Ä‚é‚Ì—Ç‚­‚È‚¢‚©‚à
 
         status.ReduceDuplicatableNumber();
     }

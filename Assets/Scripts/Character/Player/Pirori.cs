@@ -1,31 +1,9 @@
-using UnityEngine;
-
-public class Pirori : MonoBehaviour
+public class Pirori : CharacterBase
 {
-    public IStatus Status { get; private set; }
-    private AttackBehaviour attackBehaviour;
-
-    void Awake()
+    protected override void InitializeAttackBehaviour(Status status)
     {
-        Status = GetComponent<IStatus>();
-        if (Status == null)
-        {
-            Debug.LogError("IStatus component not found on " + gameObject.name);
-        }
-
-        attackBehaviour = GetComponent<Explode>();
-        if (attackBehaviour == null)
-        {
-            Debug.LogError("Explode component not found on " + gameObject.name);
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            attackBehaviour?.Attack(collision.gameObject);//Explodeに委譲
-        }
-        
+        SetAttackBehaviour(new ExplosionAttack(status));
+        // 例えば以下のように書き換えると攻撃パターンを通常攻撃に変更することができる
+        // SetAttackBehaviour(new NormalAttack(status.Attack, gameObject));
     }
 }

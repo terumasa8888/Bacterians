@@ -3,23 +3,22 @@ using UnityEngine;
 /// <summary>
 /// í èÌçUåÇ
 /// </summary>
-public class NormalAttack : MonoBehaviour, AttackBehaviour
+public class NormalAttack : IAttackBehaviour
 {
     private int attackPower;
-    private string cachedTag;
+    private GameObject attacker;
 
-    void Start()
+    public NormalAttack(int attackPower, GameObject gameObject)
     {
-        attackPower = GetComponent<Status>().Attack;
-        cachedTag = gameObject.tag;
+        this.attackPower = attackPower;
+        this.attacker = gameObject;
     }
 
-    public void Attack(GameObject target)
+    public void Attack(Status targetStatus)
     {
-        var targetStatus = target.GetComponent<Status>();
-        if (targetStatus != null && cachedTag != target.tag)
+        if (targetStatus != null && attacker.tag != targetStatus.gameObject.tag)
         {
-            targetStatus.TakeDamage(attackPower, cachedTag);
+            targetStatus.TakeDamage(attackPower, attacker.tag);
         }
     }
 }
