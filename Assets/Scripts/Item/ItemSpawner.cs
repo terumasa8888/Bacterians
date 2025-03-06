@@ -5,7 +5,7 @@ using UniRx;
 
 /// <summary>
 /// アイテムを生成するスクリプト
-/// アイテムを壊したキャラクターの攻撃力を増加させる処理も行っている
+/// アイテムを壊したキャラクターの攻撃力を増加させる処理も行っているのはおかしい
 /// </summary>
 public class ItemSpawner : MonoBehaviour
 {
