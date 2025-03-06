@@ -1,46 +1,37 @@
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 /// <summary>
-/// ぶつかった敵とともに爆発
+/// ぶつかった敵とともに爆発する攻撃
 /// </summary>
-public class ExplosionAttack : IAttackBehaviour
+public class ExplosionAttack : MonoBehaviour, IAttackBehaviour
 {
-    private GameObject explosionEffect;
-    private Status attackerStatus;
-    private const string explosionEffectAddress = "Assets/JMO Assets-TABLET-3K4KBDLP/Cartoon FX/CFX Prefabs/Explosions/CFX_Explosion_B_Smoke+Text.prefab"; // Addressablesのアドレス
+    [SerializeField] private GameObject explosionEffect; // Unityからアタッチする
+    [SerializeField] private float explosionRadius = 1f; // 爆発の半径
+    [SerializeField] private LayerMask damageableLayer; // ダメージを与える対象のレイヤー
+    [SerializeField] private GameObject explosionSoundPrefab; // 爆発音のプレハブ
 
-    public ExplosionAttack(Status attackerStatus)
+    private SoundPlayer soundPlayer;
+
+    public void Initialize()
     {
-        this.attackerStatus = attackerStatus;
-        LoadExplosionEffect();
+        soundPlayer = GetComponent<SoundPlayer>();
     }
 
-    private void LoadExplosionEffect()
+    public void Attack(GameObject attacker, DamageableBase target)
     {
-        Addressables.LoadAssetAsync<GameObject>(explosionEffectAddress).Completed += OnExplosionEffectLoaded;
-    }
+        Instantiate(explosionEffect, attacker.transform.position, Quaternion.identity);
 
-    private void OnExplosionEffectLoaded(AsyncOperationHandle<GameObject> obj)
-    {
-        if (obj.Status == AsyncOperationStatus.Succeeded)
-        {
-            explosionEffect = obj.Result;
-        }
-        else
-        {
-            Debug.LogError("Failed to load explosion effect.");
-        }
-    }
+        soundPlayer.PlaySound(explosionSoundPrefab);
 
-    public void Attack(Status targetStatus)
-    {
-        if (targetStatus != null && explosionEffect != null)
+        Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attacker.transform.position, explosionRadius, damageableLayer);
+        foreach (var hit in hitTargets)
         {
-            GameObject.Instantiate(explosionEffect, targetStatus.transform.position, Quaternion.identity);
-            GameObject.Destroy(targetStatus.gameObject); // 敵を破壊
-            GameObject.Destroy(attackerStatus.gameObject); // 自分自身も破壊
+            DamageableBase targetDamageable = hit.GetComponent<DamageableBase>();
+            if (targetDamageable != null)
+            {
+                targetDamageable.TakeDamage(attacker);
+            }
         }
+        Destroy(gameObject);
     }
 }
