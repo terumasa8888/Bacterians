@@ -32,7 +32,7 @@ public abstract class DamageableBase : MonoBehaviour
         DamageableBase attackerDamageable = attacker.GetComponent<DamageableBase>();
         if (attackerDamageable != null)
         {
-            status.TakeDamage(attackerDamageable.Status.Attack);
+            status.TakeDamage(attackerDamageable.Status.Attack, null);
         }
     }
 

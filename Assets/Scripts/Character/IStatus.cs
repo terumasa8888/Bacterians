@@ -13,7 +13,7 @@ public interface IStatus
     PlayerState CurrentState { get; }
     IObservable<Unit> OnDie { get; }
 
-    void TakeDamage(int amount);
+    void TakeDamage(int amount, string cachedTag);
     void Heal(int amount);
     void ReduceDuplicatableNumber();
     void SetDuplicatableNumber(int number);

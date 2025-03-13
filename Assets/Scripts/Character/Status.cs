@@ -148,7 +148,7 @@ using UnityEngine.Playables;
 /// キャラクターのステータスを管理するクラス
 /// MonoBehaviour を継承せず、データ管理に専念
 /// </summary>
-public class Status : IStatus
+public class Status : MonoBehaviour, IStatus
 {
     public int Hp { get; private set; }
     public int Attack { get; private set; }
@@ -177,10 +177,15 @@ public class Status : IStatus
         DuplicateInterval = characterData.DuplicateInterval;
     }
 
+
+    public void MultiplyAttack(int multiplier)
+    {
+        Attack *= multiplier;
+    }
     /// <summary>
     /// ダメージを受ける
     /// </summary>
-    public void TakeDamage(int amount)
+    public void TakeDamage(int amount, string cachedTag)
     {
         Hp -= amount;
         if (Hp <= 0)
