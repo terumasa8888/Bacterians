@@ -48,7 +48,7 @@ public class Explodable : MonoBehaviour
             var damageable = hitCollider.GetComponent<IStatus>();
             if (damageable != null && (hitCollider.CompareTag("Item") || hitCollider.CompareTag("Enemy")))
             {
-                damageable.TakeDamage(attackPower, cachedTag);
+                //damageable.TakeDamage(attackPower, cachedTag);
             }
         }
         Destroy(gameObject);

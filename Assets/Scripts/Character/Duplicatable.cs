@@ -6,6 +6,7 @@ using UniRx.Triggers;
 
 /// <summary>
 /// 増殖する機能を提供するクラス
+/// これは共通機能なので、CharacterBaseに実装するべき
 /// </summary>
 public class Duplicatable : MonoBehaviour
 {

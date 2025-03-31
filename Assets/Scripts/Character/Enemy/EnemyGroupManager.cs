@@ -72,17 +72,17 @@ public class EnemyGroupManager : MonoBehaviour
             if (i == 0)
             {
                 // 最短距離のグループはAttackフェーズ
-                group.SetState(EnemyState.Attack, GetClosestPlayerGroup(group));
+                group.SetState(CharacterState.Attack, GetClosestPlayerGroup(group));
             }
             else if (i == 1)
             {
                 // 2番目に最短距離のグループはCollectItemフェーズ
-                group.SetState(EnemyState.CollectItem, GetClosestItem(group));
+                group.SetState(CharacterState.CollectItem, GetClosestItem(group));
             }
             else
             {
                 // 残りのグループはIdleフェーズ
-                group.SetState(EnemyState.Idle, null);
+                group.SetState(CharacterState.Idle, null);
             }
         }
     }

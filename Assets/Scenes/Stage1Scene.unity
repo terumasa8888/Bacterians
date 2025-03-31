@@ -488,6 +488,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2015624070}
     m_Modifications:
     - target: {fileID: 2446694287378076150, guid: 8f44efa4053fcdc4ea88c4548051dbf3, type: 3}
+      propertyPath: saru
+      value: 
+      objectReference: {fileID: 3876688721610805439, guid: 8d93a7c16c06b1b40b78b53cb1b39440, type: 3}
+    - target: {fileID: 2446694287378076150, guid: 8f44efa4053fcdc4ea88c4548051dbf3, type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 216570279476871653}
@@ -553,6 +557,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015624070}
     m_Modifications:
+    - target: {fileID: 1783319746387331053, guid: 3f236565867f5b740a2784286f7ecec5, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 6378751569023716082, guid: 616dfc2b656859542a3723c8cb468568, type: 3}
     - target: {fileID: 1783319746387331053, guid: 3f236565867f5b740a2784286f7ecec5, type: 3}
       propertyPath: enemyCount
       value: 50

@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d0dd74843d763ad4a8cdd00afe5161b5, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &488143332972797132
@@ -180,8 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f543144061ea047b260436b2add6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: 224a5b842900ff240a5088dc06dd8a16, type: 2}
-  deadEffect: {fileID: 19800006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
 --- !u!114 &9164585133543527518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5510e07e3efb5fe459da64ddaa4ca808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterData: {fileID: 0}
+  deadEffect: {fileID: 0}
 --- !u!114 &1924643539668431020
 MonoBehaviour:
   m_ObjectHideFlags: 0

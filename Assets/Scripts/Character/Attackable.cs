@@ -69,7 +69,7 @@ public class Attackable : MonoBehaviour
         if (damageable != null)
         {
             if (cachedTag == target.tag) return;
-            damageable.TakeDamage(attackPower, cachedTag);
+            //damageable.TakeDamage(attackPower, cachedTag);
             soundPlayer.PlaySound(attackSoundPrefab);
         }
     }

@@ -1,5 +1,5 @@
 using UnityEngine;
 public interface IAttackBehaviour
 {
-    void Attack(GameObject attacker, DamageableBase target);
+    void Attack(IDamageable attacker, IDamageable target);
 }

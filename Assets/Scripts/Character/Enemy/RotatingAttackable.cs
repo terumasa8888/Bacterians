@@ -14,7 +14,7 @@ public class RotatingAttackable : MonoBehaviour
     [SerializeField] private float moveDuration = 3f; // 移動時間
     [SerializeField] private float detectionRadius = 3f;
 
-    private int attackPower;
+    //private int attackPower;
     private float moveSpeed;
     private string cachedTag;
     private bool isMoving = false;
@@ -24,7 +24,7 @@ public class RotatingAttackable : MonoBehaviour
 
     void Start()
     {
-        attackPower = GetComponent<Status>().Attack;
+        //attackPower = GetComponent<Status>().Attack;
         cachedTag = gameObject.tag;
 
         // 攻撃ルーチン
@@ -60,7 +60,7 @@ public class RotatingAttackable : MonoBehaviour
         var damageable = collidedObject.GetComponent<IStatus>();
 
         if (damageable == null || cachedTag == collidedObject.tag) return;
-        damageable.TakeDamage(attackPower, cachedTag);
+        //damageable.TakeDamage(attackPower, cachedTag);
     }
 
     /// <summary>
@@ -83,6 +83,7 @@ public class RotatingAttackable : MonoBehaviour
 
     /// <summary>
     /// 一番近いプレイヤーを探す
+    /// プレイヤーじゃなくても使えるようにしたい
     /// </summary>
     private GameObject FindNearestPlayer()
     {

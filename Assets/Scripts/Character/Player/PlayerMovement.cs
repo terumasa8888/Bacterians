@@ -3,14 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// キャラクターの移動を制御するスクリプト
+/// キャラクターの移動を制御するクラス
 /// </summary>
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement
 {
     private Vector3 destination;
     private bool hasDestination = false;
+    private IStatus status;
+    private Rigidbody2D rigidBody;
 
-    private void Update()
+    public PlayerMovement(IStatus status, Rigidbody2D rigidBody)
+    {
+        this.status = status;
+        this.rigidBody = rigidBody;
+    }
+
+    /// <summary>
+    /// 毎フレームの更新処理
+    /// </summary>
+    public void Update()
     {
         if (hasDestination)
         {
@@ -26,10 +37,9 @@ public class PlayerMovement : MonoBehaviour
         this.destination = destination;
         hasDestination = true;
 
-        Status status = GetComponent<Status>();
         if (status != null)
         {
-            status.SetState(PlayerState.Moving);
+            status.SetState(CharacterState.Moving);
         }
     }
 
@@ -38,23 +48,24 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        Status status = GetComponent<Status>();
-        if (status == null || status.CurrentState != PlayerState.Moving) return;
+        if (rigidBody == null) return;
+
+        // ステータスが取得できない場合や、ステータスが移動中でない場合は移動しない
+        if (status == null || status.CurrentState != CharacterState.Moving) return;
 
         float speed = status.Speed;
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if (rb == null) return;
 
-        // 移動先に到着したら移動を停止
-        if (Vector2.Distance(transform.position, destination) <= 0.1f)
+        // 移動先に到着しているなら移動を停止
+        if (Vector2.Distance(rigidBody.transform.position, destination) <= 0.1f)
         {
-            rb.velocity = Vector2.zero;
-            status.SetState(PlayerState.Idle);
+            rigidBody.velocity = Vector2.zero;
+            status.SetState(CharacterState.Idle);
             hasDestination = false;
             return;
         }
 
-        Vector2 direction = (destination - transform.position).normalized;
-        rb.velocity = direction * speed;
+        // 目的地に向かって移動
+        Vector2 direction = (destination - rigidBody.transform.position).normalized;
+        rigidBody.velocity = direction * speed;
     }
 }
