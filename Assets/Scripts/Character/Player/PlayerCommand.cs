@@ -58,12 +58,15 @@ public class PlayerCommand : MonoBehaviour
         destination = worldPosition;
         foreach (GameObject character in selectedCharacters)
         {
-            if (character == null || !character) continue;
+            if (character == null) continue;
 
-            PlayerMovement mover = character.GetComponent<PlayerMovement>();
-            if (mover != null)
+            //PlayerMovement mover = character.GetComponent<PlayerMovement>();
+            PlayerBase playerBase = character.GetComponent<PlayerBase>();
+
+            if (playerBase != null)
             {
-                mover.SetDestination(destination);
+                // 移動先を設定
+                playerBase.SetDestination(destination);
             }
 
             // 選択解除時にスプライトを非表示にする
@@ -84,18 +87,21 @@ public class PlayerCommand : MonoBehaviour
     {
         //selectionIndicator.Show(mousePosition);
 
+        // ここ、タグ使わなくても、サークルのコライダーを使って判定できるのでは？
         GameObject[] characters = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject character in characters)
         {
             float distance = Vector3.Distance(character.transform.position, worldPosition);
             if (distance > selectionRadius) continue;
 
-            Status status = character.GetComponent<Status>();
+            PlayerBase characterBase = character.GetComponent<PlayerBase>();
+            IStatus status = characterBase.Status;
+
             if (status == null) continue;
 
             selectedCharacters.Add(character);
 
-            // 選択されたキャラクターのスプライトを表示
+            // 選択されたキャラクターのインジケーターを表示
             var indicator = character.GetComponent<SelectionIndicator>();
             if (indicator != null)
             {
@@ -118,11 +124,11 @@ public class PlayerCommand : MonoBehaviour
             }
 
             //キャラクターを停止
-            Rigidbody2D rb = character.GetComponent<Rigidbody2D>();
-            if (rb == null) continue;
-            rb.velocity = Vector2.zero;
+            Rigidbody2D rigidBody = character.GetComponent<Rigidbody2D>();
+            if (rigidBody == null) continue;
+            rigidBody.velocity = Vector2.zero;
 
-            status.SetState(PlayerState.Selected);
+            status.SetState(CharacterState.Selected);
         }
     }
 }

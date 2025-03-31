@@ -89,7 +89,7 @@ public class PlayerSpawner : MonoBehaviour {
         Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePosition);
         objPos.z = 0f;
 
-        // クリックした位置にEnemyがいるかどうかをチェック
+        // クリックした位置にEnemyがいたら生成しない
         Collider2D hitCollider = Physics2D.OverlapPoint(objPos);
         if (hitCollider != null && hitCollider.CompareTag("Enemy")) return;
 

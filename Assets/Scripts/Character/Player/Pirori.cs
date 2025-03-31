@@ -1,8 +1,8 @@
-public class Pirori : CharacterBase
+public class Pirori : PlayerBase
 {
     protected override void Awake()
     {
         base.Awake();
-        InitializeAttackBehaviour<ExplosionAttack>();
+        // InitializeAttackBehaviour<ExplosionAttack>();
     }
 }

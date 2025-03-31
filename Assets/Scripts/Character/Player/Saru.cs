@@ -1,8 +1,3 @@
-public class Saru : CharacterBase
+public class Saru : PlayerBase
 {
-    protected override void Awake()
-    {
-        base.Awake();
-        InitializeAttackBehaviour<NormalAttack>();
-    }
 }
