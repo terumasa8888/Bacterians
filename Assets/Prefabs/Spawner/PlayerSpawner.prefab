@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4572982702351590310}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11, y: -5.1603565, z: 3.0743563}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -49,9 +49,14 @@ MonoBehaviour:
   clioneCreatableTimes: 3
   mijinkoCreatableTimes: 3
   piroriCreatableTimes: 3
-  saru: {fileID: 3876688721610805439, guid: e0771b2e280887e4cb438da148db4c08, type: 3}
-  houseDust: {fileID: 5111016314526547731, guid: 7b0bcce304957944bad81eaeb399ccfe, type: 3}
-  clione: {fileID: 3876688721610805439, guid: 29bb26e4a51a07b4eb2a78afcc42abd5, type: 3}
-  mijinko: {fileID: 3876688721610805439, guid: 124aa5868b5f8af488baa5895f2c4a41, type: 3}
-  pirori: {fileID: 3876688721610805439, guid: 830e02870db329241bb52cfecaeef014, type: 3}
-  uiManager: {fileID: 216570279656502017, guid: 627f1b4cb2416de4f94d087b038c668a, type: 3}
+  saru: {fileID: 3876688721610805439, guid: 8d93a7c16c06b1b40b78b53cb1b39440, type: 3}
+  houseDust: {fileID: 3876688721610805439, guid: 50d14b55d3afe574f9068efd1d253b6f, type: 3}
+  clione: {fileID: 3876688721610805439, guid: 64e8fb97504783c4eb561d26244bdc82, type: 3}
+  mijinko: {fileID: 3876688721610805439, guid: 38b55cf987ce4f24fb22b117c13a5ff5, type: 3}
+  pirori: {fileID: 3876688721610805439, guid: a53ce7f0d1993f14bbd6c4b46eb5293b, type: 3}
+  saruData: {fileID: 11400000, guid: 224a5b842900ff240a5088dc06dd8a16, type: 2}
+  houseDustData: {fileID: 11400000, guid: 50ad834f48a08b343bba0bb8c935e97a, type: 2}
+  clioneData: {fileID: 11400000, guid: de2fc91281ff4614fb82d13270317289, type: 2}
+  mijinkoData: {fileID: 11400000, guid: 24d1a11ce76f523418450b4c6f27c13e, type: 2}
+  piroriData: {fileID: 11400000, guid: 6d17af7e27910d0488b2b37d081542da, type: 2}
+  uiManager: {fileID: 0}

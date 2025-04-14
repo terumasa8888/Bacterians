@@ -4,7 +4,7 @@ using UniRx;
 /// <summary>
 /// プレイヤーキャラクターの基底クラス
 /// </summary>
-public abstract class PlayerBase : CharacterBase
+public abstract class PlayerBase : SmallCharacterBase
 {
     private PlayerMovement movement;
 
@@ -15,7 +15,7 @@ public abstract class PlayerBase : CharacterBase
         movement = new PlayerMovement(status, rigidBody);
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         movement.Update();
     }
@@ -27,17 +27,4 @@ public abstract class PlayerBase : CharacterBase
     {
         movement.SetDestination(destination);
     }
-
-    protected void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (gameObject.CompareTag(collision.gameObject.tag) == false)
-        {
-            IDamageable target = collision.gameObject.GetComponent<IDamageable>();
-            if (target != null)
-            {
-                attackBehaviour.Attack(this, target);
-            }
-        }
-    }
-
 }

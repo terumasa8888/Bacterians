@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5510e07e3efb5fe459da64ddaa4ca808
+guid: 5cd8100d8251b25458074d47817ce74a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - characterData: {fileID: 11400000, guid: 224a5b842900ff240a5088dc06dd8a16, type: 2}
+  - characterData: {fileID: 11400000, guid: 50ad834f48a08b343bba0bb8c935e97a, type: 2}
   - deadEffect: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

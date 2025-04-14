@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fdfa3b753d1f03646945f7035c40da74
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - characterData: {fileID: 11400000, guid: de2fc91281ff4614fb82d13270317289, type: 2}
+  - deadEffect: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
+  - healEffect: {fileID: 19800004, guid: 3af6f68141914ca43ba39b2403757bd0, type: 3}
+  - healSoundPrefab: {fileID: 5080276291938561430, guid: 9cb160e9bf56b23448978b9a72292219, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

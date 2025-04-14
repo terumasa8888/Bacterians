@@ -11,7 +11,6 @@ public class Healable : MonoBehaviour
     private float timer = 0;
     private float distance;
     private int healPower;
-    private Status status;
 
     [SerializeField] private float healDistance = 2;
     [SerializeField] private float healInterval = 10f;
@@ -34,6 +33,7 @@ public class Healable : MonoBehaviour
         if (timer > 0) return;
 
         Heal();
+        timer = healInterval;
     }
 
     /// <summary>
@@ -41,7 +41,6 @@ public class Healable : MonoBehaviour
     /// </summary>
     private void Heal()
     {
-        timer = healInterval;
         GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
 
         if (targets.Length == 0) return;

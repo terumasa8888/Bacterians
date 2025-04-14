@@ -9,7 +9,8 @@ using System;
 /// プレイヤーのキャラクターを生成するスクリプト
 /// マウスインプットはクラス分離を検討
 /// <summary>
-public class PlayerSpawner : MonoBehaviour {
+public class PlayerSpawner : MonoBehaviour
+{
 
     //[SerializeField] private float X_Max, X_Min, Y_Max, Y_Min;
     //[SerializeField] private float exclusiveX_Max, exclusiveX_Min, exclusiveY_Max, exclusiveY_Min;//クリック範囲制限
@@ -28,19 +29,29 @@ public class PlayerSpawner : MonoBehaviour {
     [SerializeField] private GameObject mijinko;
     [SerializeField] private GameObject pirori;
 
+    // 各キャラクターのデータ (ScriptableObject)
+    [SerializeField] private CharacterData saruData;
+    [SerializeField] private CharacterData houseDustData;
+    [SerializeField] private CharacterData clioneData;
+    [SerializeField] private CharacterData mijinkoData;
+    [SerializeField] private CharacterData piroriData;
+
     [SerializeField] private GameObject uiManager;
     private ButtonManagerScript buttonManagerScript;
     private UIManager uiManagerScript;
 
     private Dictionary<ButtonType, GameObject> characterPrefabs;
+    private Dictionary<ButtonType, CharacterData> characterDataMap;
     private Dictionary<ButtonType, int> creatableTimes;
 
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    void Start() {
+    void Start()
+    {
         buttonManagerScript = uiManager.GetComponent<ButtonManagerScript>();
         uiManagerScript = uiManager.GetComponent<UIManager>();
 
+        // プレハブとデータを辞書にマッピング
         characterPrefabs = new Dictionary<ButtonType, GameObject>
         {
             { ButtonType.Saru, saru },
@@ -48,6 +59,15 @@ public class PlayerSpawner : MonoBehaviour {
             { ButtonType.Clione, clione },
             { ButtonType.Mijinko, mijinko },
             { ButtonType.Pirori, pirori }
+        };
+
+        characterDataMap = new Dictionary<ButtonType, CharacterData>
+        {
+            { ButtonType.Saru, saruData },
+            { ButtonType.HouseDust, houseDustData },
+            { ButtonType.Clione, clioneData },
+            { ButtonType.Mijinko, mijinkoData },
+            { ButtonType.Pirori, piroriData }
         };
 
         creatableTimes = new Dictionary<ButtonType, int>
@@ -65,7 +85,8 @@ public class PlayerSpawner : MonoBehaviour {
 
         buttonManagerScript.SelectedButtonType
             .Where(buttonType => buttonType != ButtonType.None)
-            .Subscribe(buttonType => {
+            .Subscribe(buttonType =>
+            {
                 disposables.Clear();
                 Observable.EveryUpdate()
                     .Where(_ => Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -96,14 +117,68 @@ public class PlayerSpawner : MonoBehaviour {
         if (creatableTimes[buttonType] <= 0) return;
 
         GameObject characterPrefab = characterPrefabs[buttonType];
+        CharacterData characterData = characterDataMap[buttonType];
+
         for (int i = 0; i < 5; i++)
         {
             GameObject character = Instantiate(characterPrefab);
             character.transform.position = objPos;
             character.transform.rotation = Quaternion.identity;
+
+            // 攻撃手法をアタッチ
+            AttachAttackBehaviour(character, characterData.AttackType);
+
             ScatterPosition(character);
         }
         DecreaseCreatableTimes(buttonType);
+    }
+
+    /// <summary>
+    /// キャラクターに攻撃手法をアタッチする
+    /// </summary>
+    private void AttachAttackBehaviour(GameObject character, AttackType attackType)
+    {
+        Type attackTypeClass = GetAttackType(attackType);
+
+        if (attackTypeClass != null)
+        {
+            character.AddComponent(attackTypeClass);
+
+            // CharacterBase の InitializeAttackBehaviour を呼び出す
+            CharacterBase characterBase = character.GetComponent<CharacterBase>();
+            if (characterBase != null)
+            {
+                characterBase.InitializeAttackBehaviour();
+            }
+            else
+            {
+                Debug.LogError($"{character.name} に CharacterBase がアタッチされていません。");
+            }
+        }
+        else
+        {
+            Debug.LogError($"無効な攻撃タイプ: {attackType}");
+        }
+    }
+
+    /// <summary>
+    /// 攻撃手法名からTypeを取得
+    /// </summary>
+    private Type GetAttackType(AttackType attackType)
+    {
+        switch (attackType)
+        {
+            case AttackType.NormalAttack:
+                return typeof(NormalAttack);
+            case AttackType.ExplosionAttack:
+                return typeof(ExplosionAttack);
+            case AttackType.RotatingAttack:
+                return typeof(RotatingAttack);
+            case AttackType.None:
+                return null;
+            default:
+                return null;
+        }
     }
 
     /// <summary>
@@ -118,8 +193,9 @@ public class PlayerSpawner : MonoBehaviour {
 
     /// <summary>
     /// 生成可能回数を減らす
-    /// <summary>
-    private void DecreaseCreatableTimes(ButtonType buttonType) {
+    /// </summary>
+    private void DecreaseCreatableTimes(ButtonType buttonType)
+    {
         creatableTimes[buttonType]--;
         uiManagerScript.UpdateButtonText(buttonType, creatableTimes[buttonType]);
     }

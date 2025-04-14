@@ -34,7 +34,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         currentState = state;
         currentTarget = target;
-        PaintForDebug(state);
+        // PaintForDebug(state);
     }
 
     /// <summary>
