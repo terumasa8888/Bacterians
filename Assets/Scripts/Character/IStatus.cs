@@ -20,4 +20,5 @@ public interface IStatus
     void ReduceDuplicatableNumber();
     void SetDuplicatableNumber(int number);
     void SetState(CharacterState newState);
+    void MultiplyAttack(int multiplier);
 }

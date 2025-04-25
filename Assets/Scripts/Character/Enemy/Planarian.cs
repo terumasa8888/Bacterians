@@ -1,3 +1,3 @@
-public class Planarian : NormalEnemyBase
+public class Planarian : SmallCharacterBase
 {
 }

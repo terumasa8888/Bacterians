@@ -3,7 +3,9 @@ guid: 49ae4c8963f381f4ba65b0fb43ab0a00
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - attackEffect: {fileID: 100000, guid: 352304b7fbe11f445970df6ae36e6227, type: 3}
+  - attackSound: {fileID: 5080276291938561430, guid: 92886d45400e8e34e94c9194b3d7e90f, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

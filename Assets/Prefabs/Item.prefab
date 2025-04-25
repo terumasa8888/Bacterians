@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9176225918908411251}
   - component: {fileID: 9176225918908411254}
   - component: {fileID: 9176225918908411249}
-  - component: {fileID: 3650624610751292090}
+  - component: {fileID: 5494039393117813300}
   m_Layer: 0
   m_Name: Item
   m_TagString: Item
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.48539698, y: 0.5484097}
   m_EdgeRadius: 0
---- !u!114 &3650624610751292090
+--- !u!114 &5494039393117813300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,9 +140,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9176225918908411250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 092b9dcfad01aa145b1c02f70b3c1aa9, type: 3}
+  m_Script: {fileID: 11500000, guid: 89bbf28bc3152ab4d90ab3b46d85e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: af34e033accfb4b42b981761c19fc26f, type: 2}
-  deadEffect: {fileID: 19800006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
-  healEffect: {fileID: 0}
+  deadEffect: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
+  attackMultiplier: 3
