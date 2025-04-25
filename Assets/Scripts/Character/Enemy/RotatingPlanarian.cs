@@ -1,3 +1,3 @@
-public class RotatingPlanarian : NormalEnemyBase
+public class RotatingPlanarian : SmallCharacterBase
 {
 }

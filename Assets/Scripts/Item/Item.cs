@@ -33,7 +33,6 @@ public class Item : CharacterBase
         if (!string.IsNullOrEmpty(lastAttackerTag))
         {
             MultiplyAttack(lastAttackerTag);
-            //攻撃力を増加するキャラのタグを表示
             Debug.Log($"Attacker Tag: {lastAttackerTag}");
         }
     }
